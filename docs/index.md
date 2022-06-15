@@ -1,3 +1,7 @@
+---
+title: Gravitee.io Doc
+---
+
 # Gravitee.io Doc
 
 !!! note
