@@ -346,7 +346,7 @@ There is at least 3 connections to configure :
 
 ### Installation
 
-(Bitnami helm charts)[https://artifacthub.io/packages/helm/bitnami/redis]
+- [Bitnami helm charts](https://artifacthub.io/packages/helm/bitnami/redis)
 
 ### Configuration
 
@@ -357,14 +357,12 @@ There is at least 3 connections to configure :
 
 ### Installation
 
-(Official helm charts)[https://artifacthub.io/packages/helm/elastic/logstash#how-to-install-oss-version-of-logstash]
-(Bitnami helm charts)[https://bitnami.com/stack/logstash/helm]
+- [Official helm charts](https://artifacthub.io/packages/helm/elastic/logstash#how-to-install-oss-version-of-logstash)
+- [Bitnami helm charts](https://bitnami.com/stack/logstash/helm)
 
 ### Configuration
 
 === "Input File - Output Stdout"
-
-    Into the `uptime.conf` configuration file :
     
     ```text title="uptime.conf" linenums="1"
     
@@ -387,10 +385,6 @@ There is at least 3 connections to configure :
     ```
 
 === "Input TCP - Output Elastc Search"
-
-    Into the `uptime.conf` configuration file :
-    
-    Doc : [Configuring Logstash]([https://](https://www.elastic.co/guide/en/logstash/current/configuration.html))
     
     ```text title="uptime.conf" linenums="1"
     input {
@@ -471,3 +465,6 @@ There is at least 3 connections to configure :
       }
     }
     ```
+
+!!! note "Online documentation"
+    - [Configuring Logstash](https://www.elastic.co/guide/en/logstash/current/configuration.html)
