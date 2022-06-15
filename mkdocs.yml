@@ -1,4 +1,6 @@
 site_name: Gravitee.io Architecture Docs
+repo_url: https://github.com/gravitee-io/gravitee-api-management
+repo_name: gravitee-io
 theme:
   name: material
   palette:
@@ -14,12 +16,32 @@ theme:
         name: Switch to light mode
   language: en
   logo: assets/logo-white.png
+  icon:
+    repo: fontawesome/brands/github
   features:
     - navigation.instant
     - navigation.tracking
     - navigation.tabs
+    - navigation.top
     - content.code.annotate
-# extra:
+    - search.suggest
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/twitter 
+      link: https://twitter.com/GraviteeIO
+    - icon: fontawesome/brands/youtube 
+      link: https://www.youtube.com/c/Graviteesource
+    - icon: fontawesome/brands/linkedin 
+      link: https://www.linkedin.com/company/gravitee-io
+    - icon: fontawesome/brands/instagram 
+      link: https://www.instagram.com/gravitee.io
+    - icon: fontawesome/brands/docker 
+      link: https://hub.docker.com/u/graviteeio
+    - icon: fontawesome/brands/github 
+      link: https://github.com/gravitee-io
+    - icon: fontawesome/solid/link
+      link: https://www.gravitee.io
 #   alternate:
 #     - name: English
 #       link: /en/ 
@@ -27,8 +49,16 @@ theme:
 #     - name: Français
 #       link: /fr/
 #       lang: fr
+plugins:
+  - search
+  - tags
 markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 4
+  - meta
   - admonition
+  - pymdownx.details
   - pymdownx.tabbed:
       alternate_style: true
   - tables
@@ -39,6 +69,7 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
+  - pymdownx.keys
   - pymdownx.snippets
   - pymdownx.superfences:
       custom_fences:

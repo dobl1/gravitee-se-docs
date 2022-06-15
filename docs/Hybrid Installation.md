@@ -1,3 +1,12 @@
+---
+title: APIm Hybrid Deployment Guide
+tags:
+  - APIM
+  - OSS
+  - 3.18
+  - Hybrid
+---
+
 # APIm Hybrid Deployment Guide
 
 !!! info "Introduction"
