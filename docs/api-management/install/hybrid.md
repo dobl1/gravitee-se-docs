@@ -3,7 +3,6 @@ title: APIm Hybrid Deployment Guide
 tags:
   - API Management
   - OSS
-  - 3.18
   - Hybrid
 ---
 
