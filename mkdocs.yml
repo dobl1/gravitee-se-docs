@@ -1,6 +1,13 @@
+# Project information
 site_name: Gravitee.io Architecture Docs
-repo_url: https://github.com/gravitee-io/gravitee-api-management
-repo_name: gravitee-io
+site_url: https://dobl1.github.io/gravitee-architecture-docs
+site_author: Martin Donath
+
+# Repository
+# repo_url: https://github.com/gravitee-io
+# repo_name: gravitee-io
+
+# Configuration
 theme:
   name: material
   palette:
@@ -21,10 +28,19 @@ theme:
   features:
     - navigation.instant
     - navigation.tracking
+    - navigation.indexes
     - navigation.tabs
     - navigation.top
     - content.code.annotate
     - search.suggest
+    - search.share
+
+# Plugins
+plugins:
+  - search
+  - tags
+
+# Customization
 extra:
   generator: false
   social:
@@ -49,9 +65,8 @@ extra:
 #     - name: Français
 #       link: /fr/
 #       lang: fr
-plugins:
-  - search
-  - tags
+
+# Extensions
 markdown_extensions:
   - toc:
       permalink: true
@@ -76,3 +91,15 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+
+# Page tree
+nav:
+  - Home: index.md
+  - API Management:
+    - api-management/index.md
+    - Installation:
+      - Hybrid: api-management/install/hybrid.md
+  - Access Management: access-management/index.md
+  - API Designer: api-designer/index.md
+  - Alert Engine: alert-engine/index.md
+  - Cockpit: cockpit/index.md
