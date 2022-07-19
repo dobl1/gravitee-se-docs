@@ -362,7 +362,7 @@ There is at least 3 connections to configure :
 
 ### Configuration
 
-=== "Input File - Output Stdout"
+<!-- === "Input File - Output Stdout"
     
     ```text title="uptime.conf" linenums="1"
     
@@ -436,7 +436,7 @@ There is at least 3 connections to configure :
         codec => "json_lines"
       }
     }
-    ```
+    ``` -->
 
 === "Input TCP - Output S3 bucket"
 
