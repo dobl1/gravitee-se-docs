@@ -208,12 +208,11 @@ There is at least 3 connections to configure :
     ```yaml title="values.yaml" linenums="1"
     gateway:
       reporters:
-        elasticsearch:
-          enabled: false
-        file:
+        tcp:
           enabled: true
-          fileName: ${gravitee.home}/metrics/%s-yyyy_mm_dd
-          output: elasticsearch # Can be csv, json, elasticsearch or message_pack
+          host: logstash
+          port: 8379
+          output: elasticsearch
     ```
 
     ##### Direct (TCP)
@@ -226,8 +225,6 @@ There is at least 3 connections to configure :
     ```yaml title="values.yaml" linenums="1"
     gateway:
       reporters:
-        elasticsearch:
-          enabled: false
         tcp:
           enabled: true
           host: logstash
@@ -310,8 +307,6 @@ There is at least 3 connections to configure :
           username: kubernetes://<namespace>/secrets/<my-secret-name>/<my-secret-key>
           password: kubernetes://<namespace>/secrets/<my-secret-name>/<my-secret-key>
       reporters:
-        elasticsearch:
-          enabled: false
         tcp:
           enabled: true
           host: logstash
