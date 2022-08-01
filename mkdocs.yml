@@ -10,6 +10,7 @@ site_author: Dorian BLANC
 # Configuration
 theme:
   name: material
+  custom_dir: overrides
   palette:
     - media: "(prefers-color-scheme: light)" 
       scheme: default
@@ -34,6 +35,7 @@ theme:
     - content.code.annotate
     - search.suggest
     - search.share
+    - announce.dismiss
 
 # Plugins
 plugins:
