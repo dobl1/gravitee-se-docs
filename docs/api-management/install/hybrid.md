@@ -132,6 +132,7 @@ flowchart LR
 === "Binaries"
 
     **Download plugins**
+    
     - [gravitee-apim-repository-redis-3.18.3.zip](https://download.gravitee.io/graviteeio-apim/plugins/repositories/gravitee-apim-repository-redis/gravitee-apim-repository-redis-3.18.3.zip)
     
     !!! info "Online documentation"
@@ -694,8 +695,8 @@ There is at least 3 connections to configure :
 
 ### Configuration
 
-    !!! info "Easy peasy"
-        No specific configuration is needed.
+!!! info "Easy peasy"
+    No specific configuration is needed.
 
 ## Logstash
 
