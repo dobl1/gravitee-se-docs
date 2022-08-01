@@ -130,6 +130,9 @@ flowchart LR
     - [gravitee-apim-repository-hazelcast-3.18.3.zip](https://download.gravitee.io/graviteeio-apim/plugins/repositories/gravitee-apim-repository-hazelcast/gravitee-apim-repository-hazelcast-3.18.3.zip)
 
 === "Binaries"
+
+    **Download plugins**
+    - [gravitee-apim-repository-redis-3.18.3.zip](https://download.gravitee.io/graviteeio-apim/plugins/repositories/gravitee-apim-repository-redis/gravitee-apim-repository-redis-3.18.3.zip)
     
     !!! info "Online documentation"
         - [APIM VMs installation](https://docs.gravitee.io/apim/3.x/apim_installguide_gateway_install_zip.html)
@@ -185,8 +188,23 @@ There is at least 3 connections to configure :
 
 === "Docker"
 
-    !!! note "Soon 🚧"
-        This section is not redacted yet.
+    ```yaml title="docker-compose.yml" linenums="1"
+    version: '3.5'
+
+    services:
+      gateway:
+        image: graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}
+        container_name: gio_apim_gateway
+        restart: always
+        ports:
+          - "8082:8082"
+        environment:
+          # --- BRIDGE GATEWAYS ---
+          - gravitee_management_type=http
+          - gravitee_management_http_url=https://bridge-gateway-url:bridge-gateway-port
+          - gravitee_management_http_authentication_basic_username=bridge-gateway-username
+          - gravitee_management_http_authentication_basic_password=bridge-gateway-password
+    ```
 
 === "Gateway with `gravitee.yml` file"
 
@@ -241,7 +259,7 @@ There is at least 3 connections to configure :
     ##### Direct (TCP)
     
     !!! warning
-        Choosing the direct connection may result in a loss of data. If the connection between the gateway and logstash is broken the newly generated analytics and logs data will be lost. Prefer the File reporter.
+        Choosing the direct connection may result in a loss of data. If the connection between the gateway and logstash is broken the newly generated analytics and logs data will be lost.
     
     Into the `values.yaml` configuration file :
     
@@ -261,19 +279,87 @@ There is at least 3 connections to configure :
 
 === "Docker"
 
-    !!! note "Soon 🚧"
-        This section is not redacted yet.
+    ```yaml title="docker-compose.yml" linenums="1"
+    version: '3.5'
+
+    services:
+      gateway:
+        image: graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}
+        container_name: gio_apim_gateway
+        restart: always
+        ports:
+          - "8082:8082"
+        environment:
+          # --- LOGSTASH ---
+          - gravitee_reporters_elasticsearch_enabled=false
+          - gravitee_reportealert-engine-usernamers_tcp_enabled=true
+          - gravitee_reporters_tcp_host=logstash
+          - gravitee_reporters_tcp_port=8379
+          - gravitee_reporters_tcp_output=elasticsearch
+    ```
 
 === "Gateway with `gravitee.yml` file"
 
-    !!! note "Soon 🚧"
-        This section is not redacted yet.
-
+    ```yaml title="gravitee.yml" linenums="1"
+    reporters:
+      elasticsearch:
+        enabled: false # Is the reporter enabled or not (default to true)
+      tcp:
+        enabled: true
+        host: logstash-host
+        port: logstash-port
+        output: elasticsearch
+    ```
 
 #### Rate limits
 
-!!! warning "Soon 🚧"
-    This section is not redacted yet.
+=== "Kubernetes (Helm)"
+    
+    ```yaml title="values.yaml" linenums="1"
+    ratelimit:
+      type: redis
+    redis:
+      host: 'redis-host'
+      port: 6379
+      password: 'redis-password'
+      download: true
+    ```
+    
+    !!! info "Online documentation"
+          - [APIM hybrid deployment](https://docs.gravitee.io/apim/3.x/apim_installguide_hybrid_deployment.html#configuration)
+          - [Full `values.yaml` example](https://artifacthub.io/packages/helm/graviteeio/apim3?modal=values)
+
+=== "Docker"
+
+    ```yaml title="docker-compose.yml" linenums="1"
+    version: '3.5'
+
+    services:
+      gateway:
+        image: graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}
+        container_name: gio_apim_gateway
+        restart: always
+        ports:
+          - "8082:8082"
+        environment:
+          # --- RATE LIMIT REPO ---
+          - gravitee_ratelimit_type=redis
+          - gravitee_ratelimit_redis_host=redis-host
+          - gravitee_ratelimit_redis_port=6379
+          - gravitee_ratelimit_redis_password=${REDIS_PASS:-redis-password}
+    ```
+
+=== "Gateway with `gravitee.yml` file"
+
+    ```yaml title="gravitee.yml" linenums="1"
+    ratelimit:
+      # type: hazelcast
+      type: redis
+      redis:
+        host: redis-host
+        port: 6379
+        password: redis-password
+    ```
 
 #### Alert Engine
 
@@ -300,13 +386,39 @@ There is at least 3 connections to configure :
 
 === "Docker"
 
-    !!! note "Soon 🚧"
-        This section is not redacted yet.
+    ```yaml title="docker-compose.yml" linenums="1"
+    version: '3.5'
+
+    services:
+      gateway:
+        image: graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}
+        container_name: gio_apim_gateway
+        restart: always
+        ports:
+          - "8082:8082"
+        environment:
+          # --- ALERT ENGINE ---
+          - gravitee_alerts_alertengine_enabled=true
+          - gravitee_alerts_alertengine_ws_discovery=true
+          - gravitee_alerts_alertengine_ws_endpoints_0=https://alert-engine-url:alert-engine-port
+          - gravitee_alerts_alertengine_ws_security_username=alert-engine-username
+          - gravitee_alerts_alertengine_ws_security_password=alert-engine-password
+    ```
 
 === "Gateway with `gravitee.yml` file"
 
-    !!! note "Soon 🚧"
-        This section is not redacted yet.
+    ```yaml title="gravitee.yml" linenums="1"
+    alerts:
+      alert-engine:
+        enabled: true
+        ws:
+          discovery: true
+          endpoints:
+            - https://alert-engine-url:alert-engine-port
+          security:
+            username: alert-engine-username
+            password: alert-engine-password
+    ```
 
 #### Cockpit
 
@@ -475,7 +587,7 @@ There is at least 3 connections to configure :
       type: redis
       redis:
         host: redis-host
-        port: 6379 # example: 6379
+        port: 6379
         password: redis-password
 
     cache:
@@ -549,19 +661,71 @@ There is at least 3 connections to configure :
 
 ### Installation
 
+=== "Kubernetes (Helm)"
+
 - [Bitnami helm charts](https://artifacthub.io/packages/helm/bitnami/redis)
+
+=== "Docker"
+
+    ```yaml title="docker-compose.yml" linenums="1"
+    version: '3.5'
+
+    services:
+      rate-limit:
+        # https://hub.docker.com/_/redis?tab=tags
+        image: redis:${REDIS_VERSION:-7.0.4-alpine3.16}
+        container_name: gio_ratelimit_redis
+        hostname: redis
+        restart: always
+        ports:
+          - '6379:6379'
+        command: redis-server --requirepass ${REDIS_PASS:-redis-password}
+        volumes: 
+          - redis_data:/data
+
+    volumes:
+      redis_data:
+        driver: local
+    ```
+
+=== "VM"
+
+- [Installing Redis from redis.io](https://redis.io/docs/getting-started/installation/)
 
 ### Configuration
 
-    !!! note "Soon 🚧"
-        This section is not redacted yet.
+    !!! info "Easy peasy"
+        No specific configuration is needed.
 
 ## Logstash
 
 ### Installation
 
+=== "Kubernetes (Helm)"
+
 - [Official helm charts](https://artifacthub.io/packages/helm/elastic/logstash#how-to-install-oss-version-of-logstash)
 - [Bitnami helm charts](https://bitnami.com/stack/logstash/helm)
+
+=== "Docker"
+
+    ```yaml title="docker-compose.yml" linenums="1"
+    version: '3.5'
+
+    services:
+      logstash:
+        # https://www.docker.elastic.co/r/logstash/logstash-oss 
+        image: docker.elastic.co/logstash/logstash-oss:8.3.2
+        ports:
+          - "8379:8379"
+        volumes:
+          - ./config/logstash:/usr/share/logstash/pipeline:ro
+        environment:
+          LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    ```
+
+=== "VM"
+
+- [Download Logstash OSS](https://www.elastic.co/downloads/logstash-oss)
 
 ### Configuration
 
@@ -643,7 +807,7 @@ There is at least 3 connections to configure :
 
 === "Input TCP - Output S3 bucket"
 
-    ```text title="uptime.conf" linenums="1"
+    ```text title="logstash.conf" linenums="1"
     input {
       tcp {
           port => 8379
