@@ -663,7 +663,7 @@ There is at least 3 connections to configure :
 
 === "Kubernetes (Helm)"
 
-- [Bitnami helm charts](https://artifacthub.io/packages/helm/bitnami/redis)
+    - [Bitnami helm charts](https://artifacthub.io/packages/helm/bitnami/redis)
 
 === "Docker"
 
@@ -703,8 +703,8 @@ There is at least 3 connections to configure :
 
 === "Kubernetes (Helm)"
 
-- [Official helm charts](https://artifacthub.io/packages/helm/elastic/logstash#how-to-install-oss-version-of-logstash)
-- [Bitnami helm charts](https://bitnami.com/stack/logstash/helm)
+    - [Official helm charts](https://artifacthub.io/packages/helm/elastic/logstash#how-to-install-oss-version-of-logstash)
+    - [Bitnami helm charts](https://bitnami.com/stack/logstash/helm)
 
 === "Docker"
 
