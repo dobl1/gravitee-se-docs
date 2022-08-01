@@ -13,40 +13,44 @@ tags:
 
 ## Hybrid Architecture
 
-``` mermaid
-flowchart LR
-	subgraph "SaaS Shared"
-    CP[Cockpit]
-    AD[API Designer]
-  end
-  subgraph "SaaS Dedicated"
-    CDB[(Config Database)]
-    ADB[(Analytics Database)]
-    S3[(S3 Bucket)]
-    SGW[SaaS API Gateways]
-    BGW[Bridge Gateways]
-    MAPI[Management API]-->CDB
-    MAPI-->ADB
-    CS[Admin Console]-->MAPI
-    DEVP[Dev Portal]-->MAPI
-    AE[Alert Engine]<-->SGW
-    SGW<-->CDB
-    SGW<-->ADB
-    BGW<-->CDB
-    BGW<-->ADB
-  end
-  subgraph "On-prem / Private Cloud"
-    RLDB[(Rate Limits Database)]
-    LGW[API Gateways]<-->RLDB
-    LOG[Logstash]-->LGW
-  end
-  LGW-->BGW
-  CP-->SGW
-  CP--->LGW
-  AE<-->LGW
-  LOG-->S3-->ADB
-  AD-->MAPI
-```
+![Hybrid Architecture](./../../assets/hybrid-architecture.svg)
+
+<!-- 
+    ``` mermaid
+    flowchart LR
+      subgraph "SaaS Shared"
+        CP[Cockpit]
+        AD[API Designer]
+      end
+      subgraph "SaaS Dedicated"
+        CDB[(Config Database)]
+        ADB[(Analytics Database)]
+        S3[(S3 Bucket)]
+        SGW[SaaS API Gateways]
+        BGW[Bridge Gateways]
+        MAPI[Management API]-->CDB
+        MAPI-->ADB
+        CS[Admin Console]-->MAPI
+        DEVP[Dev Portal]-->MAPI
+        AE[Alert Engine]<-->SGW
+        SGW<-->CDB
+        SGW<-->ADB
+        BGW<-->CDB
+        BGW<-->ADB
+      end
+      subgraph "On-prem / Private Cloud"
+        RLDB[(Rate Limits Database)]
+        LGW[API Gateways]<-->RLDB
+        LOG[Logstash]-->LGW
+      end
+      LGW-->BGW
+      CP-->SGW
+      CP--->LGW
+      AE<-->LGW
+      LOG-->S3-->ADB
+      AD-->MAPI
+    ```
+-->
 
 ### SaaS Components
 
@@ -67,11 +71,13 @@ flowchart LR
 
 |        Component         | Description                                                  |
 | :----------------------: | ------------------------------------------------------------ |
-|  [Optional]<br />Redis   | Databse use locally for rate limits counter (RateLimit, Quota, Spike Arrest) and optionnaly the as an external cache for the Cache policy. |
-|         Logstash         | Collect and send local Gateways logs to SaaS.                |
 | Gravitee.io APIm Gaetway | APIM Gateway is the core component of the APIM platform, smartly proxing trafic applying policies. |
+|         Logstash         | Collect and send local Gateways logs and metrics to the Gravitee.io APIM SaaS Control Plane. |
+|          Redis           | Database use locally for rate limits synchronized counters (RateLimit, Quota, Spike Arrest) and optionnaly as an external cache for the [Cache policy](https://docs.gravitee.io/apim/3.x/apim_resources_cache_redis.html#redis_cache_resource). |
 
-## Hybrid gateway
+![Hybrid Architecture Connections](./../../assets/hybrid-architecture-connections.svg)
+
+## Self-Hosted (Hybrid) gateway
 
 ### Installation
 
@@ -81,7 +87,7 @@ flowchart LR
         - [Install APIM on Kubernetes with the Helm Chart](https://docs.gravitee.io/apim/3.x/apim_installguide_kubernetes.html)
         - [Deploy a Hybrid architecture in Kubernetes](https://docs.gravitee.io/apim/3.x/apim_installguide_hybrid_kubernetes.html)
         - [Gravitee.io Helm Charts](https://artifacthub.io/packages/helm/graviteeio/apim3)
-
+    
     !!! note "Prerequisites"
         - [Kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
         - [Helm v3](https://helm.sh/docs/intro/install)
@@ -102,9 +108,9 @@ flowchart LR
 
     !!! info "Online documentation"
         - [APIM Docker installation](https://docs.gravitee.io/apim/3.x/apim_installation_guide_docker_introduction.html)
-
+    
     **Local file structure**
-
+    
     ```bash
     .
     ├── config
@@ -119,20 +125,20 @@ flowchart LR
         ├── gravitee-apim-repository-hazelcast-3.18.3.zip
         └── gravitee-apim-repository-redis-3.18.3.zip
     ```
-
+    
     1.  If you prefer to override the default `gravitee.yml` configuration file, instead of using the environement variables in the `docker-compose.yml` file.
     2.  Logstash configuration [file](#configuration_2).
     3.  Additional plugins location.
-
+    
     **Download plugins**
-
+    
     - [gravitee-apim-repository-redis-3.18.3.zip](https://download.gravitee.io/graviteeio-apim/plugins/repositories/gravitee-apim-repository-redis/gravitee-apim-repository-redis-3.18.3.zip)
     - [gravitee-apim-repository-hazelcast-3.18.3.zip](https://download.gravitee.io/graviteeio-apim/plugins/repositories/gravitee-apim-repository-hazelcast/gravitee-apim-repository-hazelcast-3.18.3.zip)
 
 === "Binaries"
 
     **Download plugins**
-
+    
     - [gravitee-apim-repository-redis-3.18.3.zip](https://download.gravitee.io/graviteeio-apim/plugins/repositories/gravitee-apim-repository-redis/gravitee-apim-repository-redis-3.18.3.zip)
     
     !!! info "Online documentation"
@@ -146,7 +152,6 @@ There is at least 3 connections to configure :
 -  The connection to push Analytics and Logs with file or tcp reporter pushing data for logstash to send them to the SaaS storage.
 -  The connection the local rate limits database.
 -  [Optional] The connection to the SaaS Alert Engine.
--  [Optional] connection to the SaaS Cockpit to enable org & multi-env support, API promotion and operational monitoring.
 
 #### Management
 
@@ -191,7 +196,7 @@ There is at least 3 connections to configure :
 
     ```yaml title="docker-compose.yml" linenums="1"
     version: '3.5'
-
+    
     services:
       gateway:
         image: graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}
@@ -282,7 +287,7 @@ There is at least 3 connections to configure :
 
     ```yaml title="docker-compose.yml" linenums="1"
     version: '3.5'
-
+    
     services:
       gateway:
         image: graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}
@@ -334,7 +339,7 @@ There is at least 3 connections to configure :
 
     ```yaml title="docker-compose.yml" linenums="1"
     version: '3.5'
-
+    
     services:
       gateway:
         image: graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}
@@ -389,7 +394,7 @@ There is at least 3 connections to configure :
 
     ```yaml title="docker-compose.yml" linenums="1"
     version: '3.5'
-
+    
     services:
       gateway:
         image: graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}
@@ -467,7 +472,7 @@ There is at least 3 connections to configure :
 
     ```yaml title="docker-compose.yml" linenums="1"
     version: '3.5'
-
+    
     services:
       gateway:
         image: graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}
@@ -521,7 +526,7 @@ There is at least 3 connections to configure :
           # - gravitee_alerts_alertengine_ws_security_password=alert-engine-password
           # --- SECRETS ---
           - gravitee_api_properties_encryption_secret=your-own-api-32-caracters-secret
-
+    
       rate-limit:
         # https://hub.docker.com/_/redis?tab=tags
         image: redis:${REDIS_VERSION:-7.0.4-alpine3.16}
@@ -533,7 +538,7 @@ There is at least 3 connections to configure :
         command: redis-server --requirepass ${REDIS_PASS:-redis-password}
         volumes: 
           - redis_data:/data
-
+    
       logstash:
         # https://www.docker.elastic.co/r/logstash/logstash-oss 
         image: docker.elastic.co/logstash/logstash-oss:8.3.2
@@ -543,7 +548,7 @@ There is at least 3 connections to configure :
           - ./config/logstash:/usr/share/logstash/pipeline:ro
         environment:
           LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-
+    
     volumes:
       redis_data:
         driver: local
@@ -555,7 +560,7 @@ There is at least 3 connections to configure :
     ############################################################################################################
     #################################### Gravitee.IO Gateway - Configuration ###################################
     ############################################################################################################
-
+    
     ############################################################################################################
     # This file is the general configuration of Gravitee.IO Gateway:
     # - Properties (and respective default values) in comment are provided for information.
@@ -564,16 +569,16 @@ There is at least 3 connections to configure :
     #
     # Please have a look to http://docs.gravitee.io/ for more options and fine-grained granularity
     ############################################################################################################
-
+    
     organizations: cockpit-org-hrid
     environments: cockpit-env-hrid
     tags: your, sharding, tags #example: internal
-
+    
     plugins:
       path:
         - /opt/graviteeio-gateway/plugins
         - /opt/graviteeio-gateway/plugins-ext
-
+    
     management:
       type: http
       http:
@@ -582,7 +587,7 @@ There is at least 3 connections to configure :
           basic:
             username: bridge-gateway-username
             password: bridge-gateway-password
-
+    
     ratelimit:
       # type: hazelcast
       type: redis
@@ -590,10 +595,10 @@ There is at least 3 connections to configure :
         host: redis-host
         port: 6379
         password: redis-password
-
+    
     cache:
       type: ehcache
-
+    
     reporters:
       elasticsearch:
         enabled: false # Is the reporter enabled or not (default to true)
@@ -602,7 +607,7 @@ There is at least 3 connections to configure :
         host: logstash-host
         port: logstash-port
         output: elasticsearch
-
+    
     services:
       core:
         http:
@@ -613,35 +618,35 @@ There is at least 3 connections to configure :
             type: basic
             users:
               admin: internal-api-password
-
+    
       sync:
         delay: 5000
         unit: MILLISECONDS
         distributed: false # By enabling this mode, data synchronization process is distributed over clustered API gateways.
         bulk_items: 100 # Defines the number of items to retrieve during synchronization (events, plans, api keys, ...).
-
+    
       local:
         enabled: false
         path: ${gravitee.home}/apis # The path to API descriptors
-
+    
       monitoring:
         delay: 5000
         unit: MILLISECONDS
         distributed: false # By enabling this mode, data monitoring gathering process is distributed over clustered API gateways.
-
+    
       metrics:
         enabled: false
         prometheus:
           enabled: true
-
+    
       tracing:
         enabled: false
-
+    
     api:
       properties:
         encryption:
           secret: your-own-api-32-caracters-secret
-
+    
     alerts:
       alert-engine:
         enabled: true
@@ -652,7 +657,7 @@ There is at least 3 connections to configure :
           security:
             username: alert-engine-username
             password: alert-engine-password
-
+    
     classloader:
       legacy:
         enabled: false
@@ -670,7 +675,7 @@ There is at least 3 connections to configure :
 
     ```yaml title="docker-compose.yml" linenums="1"
     version: '3.5'
-
+    
     services:
       rate-limit:
         # https://hub.docker.com/_/redis?tab=tags
@@ -683,7 +688,7 @@ There is at least 3 connections to configure :
         command: redis-server --requirepass ${REDIS_PASS:-redis-password}
         volumes: 
           - redis_data:/data
-
+    
     volumes:
       redis_data:
         driver: local
@@ -711,7 +716,7 @@ There is at least 3 connections to configure :
 
     ```yaml title="docker-compose.yml" linenums="1"
     version: '3.5'
-
+    
     services:
       logstash:
         # https://www.docker.elastic.co/r/logstash/logstash-oss 
