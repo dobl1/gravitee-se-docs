@@ -132,7 +132,7 @@ flowchart LR
 === "Binaries"
 
     **Download plugins**
-    
+
     - [gravitee-apim-repository-redis-3.18.3.zip](https://download.gravitee.io/graviteeio-apim/plugins/repositories/gravitee-apim-repository-redis/gravitee-apim-repository-redis-3.18.3.zip)
     
     !!! info "Online documentation"
@@ -691,7 +691,7 @@ There is at least 3 connections to configure :
 
 === "VM"
 
-- [Installing Redis from redis.io](https://redis.io/docs/getting-started/installation/)
+    - [Installing Redis from redis.io](https://redis.io/docs/getting-started/installation/)
 
 ### Configuration
 
@@ -726,7 +726,7 @@ There is at least 3 connections to configure :
 
 === "VM"
 
-- [Download Logstash OSS](https://www.elastic.co/downloads/logstash-oss)
+    - [Download Logstash OSS](https://www.elastic.co/downloads/logstash-oss)
 
 ### Configuration
 
