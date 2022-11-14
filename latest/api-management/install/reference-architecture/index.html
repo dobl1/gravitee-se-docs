@@ -805,6 +805,7 @@
 
 <h1 id="graviteeio-api-management-reference-architecture">Gravitee.io API Management Reference Architecture<a class="headerlink" href="#graviteeio-api-management-reference-architecture" title="Permanent link">&para;</a></h1>
 <h2 id="graviteeio-api-management-architecture">Gravitee.io API Management Architecture<a class="headerlink" href="#graviteeio-api-management-architecture" title="Permanent link">&para;</a></h2>
+<p><img src="./../../../assets/gio-apim-self-hosted-components.svg" alt="Self-Hosted Components" style="display: block; margin-left: auto; margin-right: auto; zoom: 40%;" /></p>
 <table>
 <thead>
 <tr>
@@ -859,6 +860,7 @@
 </tr>
 </tbody>
 </table>
+<p><img alt="Self-Hosted Architecture" src="../../../assets/gio-apim-self-hosted-architecture.svg" /></p>
 <h2 id="production-best-practice">Production Best Practice<a class="headerlink" href="#production-best-practice" title="Permanent link">&para;</a></h2>
 <h3 id="high-availability-increasing-resilience-and-uptime">High Availability : increasing resilience and uptime<a class="headerlink" href="#high-availability-increasing-resilience-and-uptime" title="Permanent link">&para;</a></h3>
 <p>The <strong>3 Main Principles</strong> to reduce scheduled and unscheduled downtime :</p>
@@ -879,6 +881,7 @@
 </ol>
 <h4 id="elimination-of-single-points-of-failure">Elimination of single points of failure<a class="headerlink" href="#elimination-of-single-points-of-failure" title="Permanent link">&para;</a></h4>
 <p>Adding redundancy by running at least 2 G.io APIm gateways and 2 Alert engine instances in Active/Active or Active/Passive mode.</p>
+<p><img src="./../../../assets/load-balancing.svg" alt="Load Balancing" style="display: block; margin-left: auto; margin-right: auto; width: 60%;" /></p>
 <div class="admonition info">
 <p class="admonition-title">Installation on VMs</p>
 <p>(If you're installing in VMs) Use separated VMs for the gateways and alert engine instances.</p>
