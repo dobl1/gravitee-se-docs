@@ -17,7 +17,7 @@
     
     
       
-        <title>Reference Architecture - Gravitee.io Solution Engineer Documentation</title>
+        <title>Gravitee.io API Management Reference Architecture - Gravitee.io Solution Engineer Documentation</title>
       
     
     
@@ -39,6 +39,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -66,6 +68,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#graviteeio-api-management-reference-architecture" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -115,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Reference Architecture
+              Gravitee.io API Management Reference Architecture
             
           </span>
         </div>
@@ -442,10 +449,131 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Reference Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Reference Architecture
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#graviteeio-api-management-architecture" class="md-nav__link">
+    Gravitee.io API Management Architecture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-best-practice" class="md-nav__link">
+    Production Best Practice
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Best Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-availability-increasing-resilience-and-uptime" class="md-nav__link">
+    High Availability : increasing resilience and uptime
+  </a>
+  
+    <nav class="md-nav" aria-label="High Availability : increasing resilience and uptime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elimination-of-single-points-of-failure" class="md-nav__link">
+    Elimination of single points of failure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliable-crossover" class="md-nav__link">
+    Reliable crossover
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detection-of-failures-as-they-occur" class="md-nav__link">
+    Detection of failures as they occur
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capacity-planning" class="md-nav__link">
+    Capacity Planning
+  </a>
+  
+    <nav class="md-nav" aria-label="Capacity Planning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    Storage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    Memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    CPU
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-recommendations-for-self-hosted-deployment" class="md-nav__link">
+    Hardware recommendations for self-hosted deployment
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -557,6 +685,111 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#graviteeio-api-management-architecture" class="md-nav__link">
+    Gravitee.io API Management Architecture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-best-practice" class="md-nav__link">
+    Production Best Practice
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Best Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-availability-increasing-resilience-and-uptime" class="md-nav__link">
+    High Availability : increasing resilience and uptime
+  </a>
+  
+    <nav class="md-nav" aria-label="High Availability : increasing resilience and uptime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elimination-of-single-points-of-failure" class="md-nav__link">
+    Elimination of single points of failure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliable-crossover" class="md-nav__link">
+    Reliable crossover
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detection-of-failures-as-they-occur" class="md-nav__link">
+    Detection of failures as they occur
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capacity-planning" class="md-nav__link">
+    Capacity Planning
+  </a>
+  
+    <nav class="md-nav" aria-label="Capacity Planning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    Storage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    Memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    CPU
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-recommendations-for-self-hosted-deployment" class="md-nav__link">
+    Hardware recommendations for self-hosted deployment
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -570,9 +803,209 @@
                 
 
 
-  <h1>Reference Architecture</h1>
-
-
+<h1 id="graviteeio-api-management-reference-architecture">Gravitee.io API Management Reference Architecture<a class="headerlink" href="#graviteeio-api-management-reference-architecture" title="Permanent link">&para;</a></h1>
+<h2 id="graviteeio-api-management-architecture">Gravitee.io API Management Architecture<a class="headerlink" href="#graviteeio-api-management-architecture" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th align="center">Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Administration Console<br />(for API producers)</td>
+<td>This web UI gives easy access to some key <a href="https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-rest-api">APIM API</a> services. <a href="https://docs.gravitee.io/apim/3.x/apim_overview_concepts.html#gravitee-concepts-publisher">API Publishers</a> can use it to publish APIs.<br />Administrators can also configure global platform settings and specific portal settings.</td>
+</tr>
+<tr>
+<td align="center">Dev / API Portal<br />(for API consumers)</td>
+<td>This web UI gives easy access to some key <a href="https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-rest-api">APIM API</a> services. <a href="https://docs.gravitee.io/apim/3.x/apim_overview_concepts.html#gravitee-concepts-consumer">API Consumers</a> can use it to search for, view, try out and subscribe to a published API.<br />They can also use it to manage their <a href="https://docs.gravitee.io/apim/3.x/apim_overview_concepts.html#gravitee-concepts-application">applications</a>.</td>
+</tr>
+<tr>
+<td align="center">Management API</td>
+<td>This RESTful API exposes services to manage and configure the <a href="https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-mgmt-ui">APIM Console</a> and <a href="https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-portal-ui">APIM Portal</a> web UIs.<br />All exposed services are restricted by authentication and authorization rules. For more information, see the <a href="https://docs.gravitee.io/apim/3.x/apim_installguide_rest_apis_documentation.html">API Reference</a> section.</td>
+</tr>
+<tr>
+<td align="center">API Gateways</td>
+<td>APIM Gateway is the core component of the APIM platform. You can think of it like a smart proxy.<br /><br />Unlike a traditional HTTP proxy, APIM Gateway has the capability to apply <a href="https://docs.gravitee.io/apim/3.x/apim_overview_plugins.html#gravitee-plugins-policies">policies</a> (i.e., rules) to both HTTP requests and responses according to your needs. With these policies, you can enhance request and response processing by adding transformations, security, and many other exciting features.</td>
+</tr>
+<tr>
+<td align="center">Bridge Gateways</td>
+<td>A <em>bridge</em> API Gateway exposes extra HTTP services for bridging HTTP calls to the underlying repository (which can be any of our supported repositories: MongoDB, JDBC and so on)</td>
+</tr>
+<tr>
+<td align="center">Config Database</td>
+<td>Database use to store all the API Management platform management data, such as API definitions, users, applications and plans.</td>
+</tr>
+<tr>
+<td align="center">Analytics Database</td>
+<td>Database use to store the variety of events occurring in the gateway.</td>
+</tr>
+<tr>
+<td align="center">Rate Limits Database</td>
+<td>Database use locally for rate limits synchronized counters (Rate Limit, Quota, Spike Arrest) and optionnaly as an external cache for the <a href="https://docs.gravitee.io/apim/3.x/apim_resources_cache_redis.html#redis_cache_resource">Cache policy</a>.</td>
+</tr>
+<tr>
+<td align="center">[Enterprise]<br />Cockpit</td>
+<td>Cockpit is a centralized, multi-environments / organizations tool for managing all your Gravitee API Management and Access Management installations in a single place.</td>
+</tr>
+<tr>
+<td align="center">[Enterprise]<br />API Designer</td>
+<td>Drag-and-Drop graphical (MindMap based) API designer to quickly and intuitively design your APIs (Swagger / OAS) and even deploy mocked APIs for quick testing.</td>
+</tr>
+<tr>
+<td align="center">[Enterprise]<br />Alert Engine</td>
+<td>Alert Engine (AE) provides APIM and AM users with efficient and flexible API platform monitoring, including advanced alerting configuration and notifications sent through their preferred channels, such as email, Slack and using Webhooks.<br />AE does not require any external components or a database as it does not store anything. It receives events and sends notifications under the conditions which have been pre-configured upstream with triggers.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="production-best-practice">Production Best Practice<a class="headerlink" href="#production-best-practice" title="Permanent link">&para;</a></h2>
+<h3 id="high-availability-increasing-resilience-and-uptime">High Availability : increasing resilience and uptime<a class="headerlink" href="#high-availability-increasing-resilience-and-uptime" title="Permanent link">&para;</a></h3>
+<p>The <strong>3 Main Principles</strong> to reduce scheduled and unscheduled downtime :</p>
+<ol>
+<li>
+<p><strong>Elimination of single points of failure</strong> (SPOF)
+   <strong>→</strong> Adding <strong>redundancy</strong> by running at least 2 G.io APIm gateways and 2 Alert engine instances</p>
+</li>
+<li>
+<p><strong>Reliable crossover</strong>
+   <strong>→</strong> Reliable <strong>load-balancer</strong> in front of G.io APIm gateways
+   (Nginx, HAproxy, F5, Traefik, Squid, Kemp, LinuxHA, …).</p>
+</li>
+<li>
+<p><strong>Detection of failures</strong> as they occur
+   <strong>→</strong> <strong>Active monitoring</strong> of G.io APIm gateways.</p>
+</li>
+</ol>
+<h4 id="elimination-of-single-points-of-failure">Elimination of single points of failure<a class="headerlink" href="#elimination-of-single-points-of-failure" title="Permanent link">&para;</a></h4>
+<p>Adding redundancy by running at least 2 G.io APIm gateways and 2 Alert engine instances in Active/Active or Active/Passive mode.</p>
+<div class="admonition info">
+<p class="admonition-title">Installation on VMs</p>
+<p>(If you're installing in VMs) Use separated VMs for the gateways and alert engine instances.</p>
+</div>
+<h4 id="reliable-crossover">Reliable crossover<a class="headerlink" href="#reliable-crossover" title="Permanent link">&para;</a></h4>
+<p>Active vs Passive health checks</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Active health checks</strong></th>
+<th><strong>Passive health checks (circuit breakers)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Re-enable a backend</strong></td>
+<td>Active health checks can automatically re-enable a backend  in the backend group as soon as it is healthy again.</td>
+<td>Passive health checks cannot.</td>
+</tr>
+<tr>
+<td><strong>Additional traffic</strong></td>
+<td>Active health checks do produce additional traffic to the  target.</td>
+<td>Passive health checks do not produce additional traffic to  the target.</td>
+</tr>
+<tr>
+<td><strong>Probe endpoint</strong></td>
+<td>An active health checker demands a known URL with a  reliable status response in the backend to be configured as a request  endpoint (which may be as simple as "/"). By providing a  custom probe endpoint for an active health checker, an backend may determine  its own health metrics and produce a status code to be consumed by Gravitee.  Even though a target continues to serve traffic which looks healthy to the  passive health checker, it would be able to respond to the active probe with  a failure status, essentially requesting to be relieved from taking new  traffic.</td>
+<td>Passive health checks do not demand such configuration.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detection-of-failures-as-they-occur">Detection of failures as they occur<a class="headerlink" href="#detection-of-failures-as-they-occur" title="Permanent link">&para;</a></h4>
+<p>Active monitoring of G.io APIm gateways and mAPI health using :</p>
+<ul>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_gateway_technical_api.html">Gateway internal API</a>, a RESTful endpoint to get node status`<ul>
+<li><strong>GET /_node</strong> : Gets generic node information : version, revision, name, …</li>
+<li><strong>GET /_node/health?probes=#probe1,...</strong> : Gets the health status. Probes can be filtered using the optional probes query param.</li>
+<li><strong>GET /_node/monitor</strong> : Gets monitoring information from the JVM and the server._</li>
+<li><strong>GET /_node/apis</strong> : Gets the APIs deployed and their config on this APIM Gateway instance.</li>
+</ul>
+</li>
+<li>An API with <a href="https://docs.gravitee.io/apim/3.x/apim_policies_mock.html">mock policy</a> to perform active health checks.</li>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_gateway_metrics.html">Prometheus</a> to expose metrics : (/_node/metrics/prometheus), to get Vert.x 4 metrics (customizables with labels)</li>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_enable_opentracing_with_jaeger.html">OpenTracing</a> with Jaeger to trace every request that comes through the APIM Gateway. Creating a deep level of insight on API policies and making debugging a cinch.</li>
+</ul>
+<h2 id="capacity-planning">Capacity Planning<a class="headerlink" href="#capacity-planning" title="Permanent link">&para;</a></h2>
+<h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">&para;</a></h3>
+<p>Storage is mostly a concern at the analytics database level.</p>
+<p>Depending on :</p>
+<ul>
+<li>The architecture requirements (redundancy, backups)</li>
+<li>The APIs configurations (are advanced logs activated on requests and responses payloads especially)</li>
+<li>The APIs rate (RPS : Requests Per Second)</li>
+<li>The APIs payload sizes</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Systematic advanced logs on all API requests and responses</p>
+<p>If you have activated the advanced logs on requests and responses payloads, with an average (requests + responses) payload size of 10kB, and you have 10 RPS, and you want to keep the logs for 6 months, it will take 1.5 TB of storage. It might be fine for some use cases, but keep in mind that activating the advanced logs on all API requests and responses will generate a lot of data and reduce the gateway capacities as well.</p>
+</div>
+<h3 id="memory">Memory<a class="headerlink" href="#memory" title="Permanent link">&para;</a></h3>
+<p>Memory is highly dependent on use cases.
+The more APIs you will have that load payloads in memory (encryption policy, payload transformation, advanced logs, ...) the more the memory consumption will increase.</p>
+<h3 id="cpu">CPU<a class="headerlink" href="#cpu" title="Permanent link">&para;</a></h3>
+<p>The CPU load is directly related to the API traffic.
+It is the metric to follow to evaluate the load level of the gateways and the one to use to determine the horizontal scalability (CPU &gt; 75% for example)</p>
+<h2 id="hardware-recommendations-for-self-hosted-deployment">Hardware recommendations for self-hosted deployment<a class="headerlink" href="#hardware-recommendations-for-self-hosted-deployment" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Component</strong></th>
+<th align="center"><strong>vCPU</strong></th>
+<th align="center"><strong>RAM (GB)</strong></th>
+<th align="center"><strong>Disk (Go)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Dev Portal + REST API (dev portal only)</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">20</td>
+</tr>
+<tr>
+<td align="left">Console + REST API (console only)</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">20</td>
+</tr>
+<tr>
+<td align="left">Dev Portal + Console +  REST API</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">20</td>
+</tr>
+<tr>
+<td align="left">APIm Gateway instance<br>Production best practice (HA) is 2 nodes</td>
+<td align="center">0.25 - 4</td>
+<td align="center">512 MB - 8</td>
+<td align="center">20</td>
+</tr>
+<tr>
+<td align="left">Alert Engine instance<br>Production best practice (HA) is 2 nodes</td>
+<td align="center">0.25 - 4</td>
+<td align="center">512 MB - 8</td>
+<td align="center">20</td>
+</tr>
+<tr>
+<td align="left">Analytics DB instance (ElasticSearch)<br><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/setup.html">Production best practice is 3 nodes</a><br><a href="https://www.elastic.co/guide/en/elasticsearch/guide/master/hardware.html">Offical hardware recommendations</a></td>
+<td align="center"><a href="https://github.com/elastic/helm-charts/blob/main/elasticsearch/values.yaml#L90">1</a> - <a href="https://www.elastic.co/guide/en/elasticsearch/guide/master/hardware.html#_cpus">8</a></td>
+<td align="center"><a href="https://github.com/elastic/helm-charts/blob/main/elasticsearch/values.yaml#L90">2</a> - <a href="https://www.elastic.co/guide/en/elasticsearch/guide/master/hardware.html#_memory">8</a>  or more</td>
+<td align="center">20 + 0.5 per million requests for default metrics</td>
+</tr>
+<tr>
+<td align="left">Config DB instance (MongoDB or JDBC DB)<br/><a href="https://www.mongodb.com/docs/manual/administration/production-notes">Production best practice is 3 nodes</a></td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">30</td>
+</tr>
+<tr>
+<td align="left">Rate Limit DB instance (Redis)<br/><a href="https://docs.redis.com/latest/rs/installing-upgrading/hardware-requirements/#productionenvironment">Production best practice is 3 nodes</a></td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">20</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -580,6 +1013,8 @@
               
             </article>
             
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
           </div>
         </div>
         
@@ -711,7 +1146,7 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.indexes", "navigation.tabs", "navigation.top", "content.code.annotate", "search.suggest", "search.share", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.indexes", "navigation.tabs", "navigation.top", "content.code.annotate", "content.tabs.link", "search.suggest", "search.share", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
       <script src="../../../assets/javascripts/bundle.0bc13b87.min.js"></script>
