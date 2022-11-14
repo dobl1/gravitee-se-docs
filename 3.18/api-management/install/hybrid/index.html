@@ -1,0 +1,2435 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Dorian BLANC">
+      
+      
+        <link rel="canonical" href="https://dobl1.github.io/gravitee-se-docs/3.18/api-management/install/hybrid/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.4.0rc1">
+    
+    
+      
+        <title>APIm Hybrid Deployment Guide - Gravitee.io Solution Engineer Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.476df7d4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#apim-hybrid-deployment-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+              </button>
+            
+            
+  <p>This is not the official Gravitee.io documentation --> <a href="https://docs.gravitee.io">docs.gravitee.io</a></p>
+
+          </div>
+          
+            <script>var content,el=document.querySelector("[data-md-component=announce]");el&&(content=el.querySelector(".md-typeset"),__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0))</script>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Gravitee.io Solution Engineer Documentation" class="md-header__button md-logo" aria-label="Gravitee.io Solution Engineer Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo-white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Gravitee.io Solution Engineer Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              APIm Hybrid Deployment Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        API Management
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../access-management/" class="md-tabs__link">
+      Access Management
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../api-designer/" class="md-tabs__link">
+      API Designer
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../alert-engine/" class="md-tabs__link">
+      Alert Engine
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../cockpit/" class="md-tabs__link">
+      Cockpit
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../tags/" class="md-tabs__link">
+      Tags
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Gravitee.io Solution Engineer Documentation" class="md-nav__button md-logo" aria-label="Gravitee.io Solution Engineer Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo-white.png" alt="logo">
+
+    </a>
+    Gravitee.io Solution Engineer Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../">API Management</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="API Management" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Hybrid
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Hybrid
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-architecture" class="md-nav__link">
+    Hybrid Architecture
+  </a>
+  
+    <nav class="md-nav" aria-label="Hybrid Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#saas-components" class="md-nav__link">
+    SaaS Components
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-prem-private-cloud-components" class="md-nav__link">
+    On-prem / Private cloud components
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-hosted-hybrid-gateway" class="md-nav__link">
+    Self-Hosted (Hybrid) gateway
+  </a>
+  
+    <nav class="md-nav" aria-label="Self-Hosted (Hybrid) gateway">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#management" class="md-nav__link">
+    Management
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analytics-and-logs" class="md-nav__link">
+    Analytics and Logs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limits" class="md-nav__link">
+    Rate limits
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alert-engine" class="md-nav__link">
+    Alert Engine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cockpit" class="md-nav__link">
+    Cockpit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-example" class="md-nav__link">
+    Full example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    Redis
+  </a>
+  
+    <nav class="md-nav" aria-label="Redis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation_1" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_1" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logstash" class="md-nav__link">
+    Logstash
+  </a>
+  
+    <nav class="md-nav" aria-label="Logstash">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation_2" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_2" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference-architecture/" class="md-nav__link">
+        Reference Architecture
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../access-management/" class="md-nav__link">
+        Access Management
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api-designer/" class="md-nav__link">
+        API Designer
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../alert-engine/" class="md-nav__link">
+        Alert Engine
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cockpit/" class="md-nav__link">
+        Cockpit
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tags/" class="md-nav__link">
+        Tags
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-architecture" class="md-nav__link">
+    Hybrid Architecture
+  </a>
+  
+    <nav class="md-nav" aria-label="Hybrid Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#saas-components" class="md-nav__link">
+    SaaS Components
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-prem-private-cloud-components" class="md-nav__link">
+    On-prem / Private cloud components
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-hosted-hybrid-gateway" class="md-nav__link">
+    Self-Hosted (Hybrid) gateway
+  </a>
+  
+    <nav class="md-nav" aria-label="Self-Hosted (Hybrid) gateway">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#management" class="md-nav__link">
+    Management
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analytics-and-logs" class="md-nav__link">
+    Analytics and Logs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rate-limits" class="md-nav__link">
+    Rate limits
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alert-engine" class="md-nav__link">
+    Alert Engine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cockpit" class="md-nav__link">
+    Cockpit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-example" class="md-nav__link">
+    Full example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    Redis
+  </a>
+  
+    <nav class="md-nav" aria-label="Redis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation_1" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_1" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logstash" class="md-nav__link">
+    Logstash
+  </a>
+  
+    <nav class="md-nav" aria-label="Logstash">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation_2" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_2" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="apim-hybrid-deployment-guide">APIm Hybrid Deployment Guide<a class="headerlink" href="#apim-hybrid-deployment-guide" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Introduction</p>
+<p>This documentation page relates to the installation of the client (On-Prem / Private Cloud) part of the API Management platform in a Hybrid architecture (SaaS + On-prem / Private cloud).</p>
+</div>
+<h2 id="hybrid-architecture">Hybrid Architecture<a class="headerlink" href="#hybrid-architecture" title="Permanent link">&para;</a></h2>
+<p><img alt="Hybrid Architecture" src="../../../assets/hybrid-architecture.svg" /></p>
+<!-- 
+    <pre class="mermaid"><code>flowchart LR
+  subgraph "SaaS Shared"
+    CP[Cockpit]
+    AD[API Designer]
+  end
+  subgraph "SaaS Dedicated"
+    CDB[(Config Database)]
+    ADB[(Analytics Database)]
+    S3[(S3 Bucket)]
+    SGW[SaaS API Gateways]
+    BGW[Bridge Gateways]
+    MAPI[Management API]--&gt;CDB
+    MAPI--&gt;ADB
+    CS[Admin Console]--&gt;MAPI
+    DEVP[Dev Portal]--&gt;MAPI
+    AE[Alert Engine]&lt;--&gt;SGW
+    SGW&lt;--&gt;CDB
+    SGW&lt;--&gt;ADB
+    BGW&lt;--&gt;CDB
+    BGW&lt;--&gt;ADB
+  end
+  subgraph "On-prem / Private Cloud"
+    RLDB[(Rate Limits Database)]
+    LGW[API Gateways]&lt;--&gt;RLDB
+    LOG[Logstash]--&gt;LGW
+  end
+  LGW--&gt;BGW
+  CP--&gt;SGW
+  CP---&gt;LGW
+  AE&lt;--&gt;LGW
+  LOG--&gt;S3--&gt;ADB
+  AD--&gt;MAPI</code></pre>
+-->
+
+<h3 id="saas-components">SaaS Components<a class="headerlink" href="#saas-components" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="center">Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Administration Console<br />(for API producers)</td>
+<td>This web UI gives easy access to some key <a href="https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-rest-api">APIM API</a> services. <a href="https://docs.gravitee.io/apim/3.x/apim_overview_concepts.html#gravitee-concepts-publisher">API Publishers</a> can use it to publish APIs.<br />Administrators can also configure global platform settings and specific portal settings.</td>
+</tr>
+<tr>
+<td align="center">Dev / API Portal<br />(for API consumers)</td>
+<td>This web UI gives easy access to some key <a href="https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-rest-api">APIM API</a> services. <a href="https://docs.gravitee.io/apim/3.x/apim_overview_concepts.html#gravitee-concepts-consumer">API Consumers</a> can use it to search for, view, try out and subscribe to a published API.<br />They can also use it to manage their <a href="https://docs.gravitee.io/apim/3.x/apim_overview_concepts.html#gravitee-concepts-application">applications</a>.</td>
+</tr>
+<tr>
+<td align="center">Management API</td>
+<td>This RESTful API exposes services to manage and configure the <a href="https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-mgmt-ui">APIM Console</a> and <a href="https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-portal-ui">APIM Portal</a> web UIs.<br />All exposed services are restricted by authentication and authorization rules. For more information, see the <a href="https://docs.gravitee.io/apim/3.x/apim_installguide_rest_apis_documentation.html">API Reference</a> section.</td>
+</tr>
+<tr>
+<td align="center">SaaS API Gateways</td>
+<td>APIM Gateway is the core component of the APIM platform. You can think of it like a smart proxy.<br /><br />Unlike a traditional HTTP proxy, APIM Gateway has the capability to apply <a href="https://docs.gravitee.io/apim/3.x/apim_overview_plugins.html#gravitee-plugins-policies">policies</a> (i.e., rules) to both HTTP requests and responses according to your needs. With these policies, you can enhance request and response processing by adding transformations, security, and many other exciting features.</td>
+</tr>
+<tr>
+<td align="center">Bridge Gateways</td>
+<td>A <em>bridge</em> API Gateway exposes extra HTTP services for bridging HTTP calls to the underlying repository (which can be any of our supported repositories: MongoDB, JDBC and so on)</td>
+</tr>
+<tr>
+<td align="center">Config Database</td>
+<td>All the API Management platform management data, such as API definitions, users, applications and plans.</td>
+</tr>
+<tr>
+<td align="center">S3 Bucket + Analytics Database</td>
+<td>Analytics and logs data</td>
+</tr>
+<tr>
+<td align="center">[Optional]<br />Cockpit</td>
+<td>Cockpit is a centralized, multi-environments / organizations tool for managing all your Gravitee API Management and Access Management installations in a single place.</td>
+</tr>
+<tr>
+<td align="center">[Optional]<br />API Designer</td>
+<td>Drag-and-Drop graphical (MindMap based) API designer to quickly and intuitively design your APIs (Swagger / OAS) and even deploy mocked APIs for quick testing.</td>
+</tr>
+<tr>
+<td align="center">[Optional]<br />Alert Engine</td>
+<td>Alert Engine (AE) provides APIM and AM users with efficient and flexible API platform monitoring, including advanced alerting configuration and notifications sent through their preferred channels, such as email, Slack and using Webhooks.<br />AE does not require any external components or a database as it does not store anything. It receives events and sends notifications under the conditions which have been pre-configured upstream with triggers.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="on-prem-private-cloud-components">On-prem / Private cloud components<a class="headerlink" href="#on-prem-private-cloud-components" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="center">Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Gravitee.io APIm Gaetway</td>
+<td>APIM Gateway is the core component of the APIM platform, smartly proxing trafic applying policies.</td>
+</tr>
+<tr>
+<td align="center">Logstash</td>
+<td>Collect and send local Gateways logs and metrics to the Gravitee.io APIM SaaS Control Plane.</td>
+</tr>
+<tr>
+<td align="center">Redis</td>
+<td>Database use locally for rate limits synchronized counters (RateLimit, Quota, Spike Arrest) and optionnaly as an external cache for the <a href="https://docs.gravitee.io/apim/3.x/apim_resources_cache_redis.html#redis_cache_resource">Cache policy</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Hybrid Architecture Connections" src="../../../assets/hybrid-architecture-connections.svg" /></p>
+<h2 id="self-hosted-hybrid-gateway">Self-Hosted (Hybrid) gateway<a class="headerlink" href="#self-hosted-hybrid-gateway" title="Permanent link">&para;</a></h2>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Kubernetes (Helm)</label><label for="__tabbed_1_2">Docker</label><label for="__tabbed_1_3">Binaries</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="admonition info">
+<p class="admonition-title">Online documentation and assets</p>
+<ul>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_kubernetes.html">Install APIM on Kubernetes with the Helm Chart</a></li>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_hybrid_kubernetes.html">Deploy a Hybrid architecture in Kubernetes</a></li>
+<li><a href="https://artifacthub.io/packages/helm/graviteeio/apim3">Gravitee.io Helm Charts</a></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Prerequisites</p>
+<ul>
+<li><a href="https://kubernetes.io/docs/tasks/tools/#kubectl">Kubectl</a></li>
+<li><a href="https://helm.sh/docs/intro/install">Helm v3</a></li>
+</ul>
+</div>
+<p>Steps :</p>
+<ol>
+<li>Add the Gravitee.io Helm charts repository.
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>helm repo add graviteeio https://helm.gravitee.io
+</code></pre></div></li>
+<li>Install using the <code>values.yaml</code> file.
+<br><a href="https://artifacthub.io/packages/helm/graviteeio/apim3?modal=values">Here is the full <code>values.yaml</code> example</a>, please customize it following the <a href="#configuration">Configuration sections</a>.
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>helm install graviteeio-apim3x graviteeio/apim3 -f values.yaml
+</code></pre></div></li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="admonition info">
+<p class="admonition-title">Online documentation</p>
+<ul>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installation_guide_docker_introduction.html">APIM Docker installation</a></li>
+</ul>
+</div>
+<p><strong>Local file structure</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── config
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│   ├── gateway
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│   │   └── gravitee.yml <span class="c1"># (1)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│   └── logstash
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│       └── logstash.conf <span class="c1"># (2)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>├── docker-compose.yml
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>├── logs
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│   └── apim-gateway-dev
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>└── plugins <span class="c1"># (3)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    ├── gravitee-apim-repository-hazelcast-3.18.3.zip
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    └── gravitee-apim-repository-redis-3.18.3.zip
+</code></pre></div>
+<ol>
+<li>If you prefer to override the default <code>gravitee.yml</code> configuration file, instead of using the environement variables in the <code>docker-compose.yml</code> file.</li>
+<li>Logstash configuration <a href="#configuration_2">file</a>.</li>
+<li>Additional plugins location.</li>
+</ol>
+<p><strong>Download plugins</strong></p>
+<ul>
+<li><a href="https://download.gravitee.io/graviteeio-apim/plugins/repositories/gravitee-apim-repository-redis/gravitee-apim-repository-redis-3.18.3.zip">gravitee-apim-repository-redis-3.18.3.zip</a></li>
+<li><a href="https://download.gravitee.io/graviteeio-apim/plugins/repositories/gravitee-apim-repository-hazelcast/gravitee-apim-repository-hazelcast-3.18.3.zip">gravitee-apim-repository-hazelcast-3.18.3.zip</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><strong>Download plugins</strong></p>
+<ul>
+<li><a href="https://download.gravitee.io/graviteeio-apim/plugins/repositories/gravitee-apim-repository-redis/gravitee-apim-repository-redis-3.18.3.zip">gravitee-apim-repository-redis-3.18.3.zip</a></li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Online documentation</p>
+<ul>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_gateway_install_zip.html">APIM VMs installation</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
+<p>There is at least 3 connections to configure :</p>
+<ul>
+<li>The connection to the SaaS Management plane with the Bridge Gateway.</li>
+<li>The connection to push Analytics and Logs with file or tcp reporter pushing data for logstash to send them to the SaaS storage.</li>
+<li>The connection the local rate limits database.</li>
+<li>[Optional] The connection to the SaaS Alert Engine.</li>
+<li>[Optional] The connection to the SaaS Cockpit</li>
+</ul>
+<h4 id="management">Management<a class="headerlink" href="#management" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Kubernetes (Helm with <code>values.yaml</code> file)</label><label for="__tabbed_2_2">Docker</label><label for="__tabbed_2_3">Gateway with <code>gravitee.yml</code> file</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Into the <code>values.yaml</code> configuration file :</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">values.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nt">management</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span><span class="w"></span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="nt">gateway</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">  </span><span class="nt">management</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://bridge-gateway-url:bridge-gateway-port</span><span class="w"></span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes://&lt;namespace&gt;/secrets/&lt;my-secret-name&gt;/&lt;my-secret-key&gt;</span><span class="w"></span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes://&lt;namespace&gt;/secrets/&lt;my-secret-name&gt;/&lt;my-secret-key&gt;</span><span class="w"></span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">      </span><span class="c1"># ssl:</span><span class="w"></span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">      </span><span class="c1">#   trustall: true</span><span class="w"></span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">      </span><span class="c1">#   verifyHostname: true</span><span class="w"></span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">      </span><span class="c1">#   keystore:</span><span class="w"></span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">      </span><span class="c1">#     type: jks # Supports jks, pem, pkcs12</span><span class="w"></span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">      </span><span class="c1">#     path: ${gravitee.home}/security/keystore.jks</span><span class="w"></span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">      </span><span class="c1">#     password: secret</span><span class="w"></span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">      </span><span class="c1">#   truststore:</span><span class="w"></span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">      </span><span class="c1">#     type: jks # Supports jks, pem, pkcs12</span><span class="w"></span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">      </span><span class="c1">#     path: ${gravitee.home}/security/truststore.jks</span><span class="w"></span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">      </span><span class="c1">#     password: secret</span><span class="w"></span>
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="w">      </span><span class="c1"># proxy:</span><span class="w"></span>
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="w">      </span><span class="c1">#   host: bridge-gateway-proxy-host</span><span class="w"></span>
+<a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="w">      </span><span class="c1">#   port: bridge-gateway-proxy-port</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Online documentation</p>
+<ul>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_kubernetes.html">Install APIM on Kubernetes with the Helm Chart</a></li>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_hybrid_kubernetes.html">Deploy a Hybrid architecture in Kubernetes</a></li>
+<li><a href="https://artifacthub.io/packages/helm/graviteeio/apim3">Gravitee.io Helm Charts</a></li>
+</ul>
+</div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">docker-compose.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.5&#39;</span><span class="w"></span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}</span><span class="w"></span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gio_apim_gateway</span><span class="w"></span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span><span class="w"></span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8082:8082&quot;</span><span class="w"></span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">      </span><span class="c1"># --- BRIDGE GATEWAYS ---</span><span class="w"></span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_management_type=http</span><span class="w"></span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_management_http_url=https://bridge-gateway-url:bridge-gateway-port</span><span class="w"></span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_management_http_authentication_basic_username=bridge-gateway-username</span><span class="w"></span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_management_http_authentication_basic_password=bridge-gateway-password</span><span class="w"></span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">      </span><span class="c1"># - gravitee_management_http_proxy_host=bridge-gateway-proxy-host</span><span class="w"></span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">      </span><span class="c1"># - gravitee_management_http_proxy_port=bridge-gateway-proxy-port</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<p>Into the <code>gravitee.yml</code> configuration file :</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">gravitee.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span>
+<span class="normal"><a href="#__codelineno-5-23">23</a></span>
+<span class="normal"><a href="#__codelineno-5-24">24</a></span>
+<span class="normal"><a href="#__codelineno-5-25">25</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nt">management</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span><span class="w"></span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">  </span><span class="nt">http</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://bridge-gateway-url:bridge-gateway-port</span><span class="w"></span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="nt">keepAlive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="nt">idleTimeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30000</span><span class="w"></span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="nt">connectTimeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w"></span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">    </span><span class="nt">authentication</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">      </span><span class="nt">basic</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">        </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge-gateway-username</span><span class="w"></span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge-gateway-password</span><span class="w"></span>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">    </span><span class="nt">proxy</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge-gateway-proxy-host</span><span class="w"></span>
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge-gateway-proxy-port</span><span class="w"></span>
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="w">    </span><span class="nt">ssl</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="w">      </span><span class="nt">trustAll</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="w">      </span><span class="nt">verifyHostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="w">      </span><span class="nt">keystore</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="c1"># can be jks / pem / pkcs12</span><span class="w"></span>
+<a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="w">      </span><span class="nt">trustore</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-23" name="__codelineno-5-23"></a><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="c1"># can be jks / pem / pkcs12</span><span class="w"></span>
+<a id="__codelineno-5-24" name="__codelineno-5-24"></a><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-5-25" name="__codelineno-5-25"></a><span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Online documentation</p>
+<ul>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_hybrid_deployment.html#apim_gateway_http_repository_client">APIM hybrid deployment</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<h4 id="analytics-and-logs">Analytics and Logs<a class="headerlink" href="#analytics-and-logs" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Kubernetes (Helm)</label><label for="__tabbed_3_2">Docker</label><label for="__tabbed_3_3">Gateway with <code>gravitee.yml</code> file</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h5 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h5>
+<p>Into the <code>values.yaml</code> configuration file :</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">values.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nt">gateway</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span><span class="nt">reporters</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">    </span><span class="nt">tcp</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logstash</span><span class="w"></span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8379</span><span class="w"></span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">      </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">elasticsearch</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<h5 id="direct-tcp">Direct (TCP)<a class="headerlink" href="#direct-tcp" title="Permanent link">&para;</a></h5>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Choosing the direct connection may result in a loss of data. If the connection between the gateway and logstash is broken the newly generated analytics and logs data will be lost.</p>
+</div>
+<p>Into the <code>values.yaml</code> configuration file :</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">values.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nt">gateway</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">  </span><span class="nt">reporters</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">    </span><span class="nt">tcp</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logstash</span><span class="w"></span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8379</span><span class="w"></span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">      </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">elasticsearch</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Online documentation</p>
+<ul>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_hybrid_deployment.html#configuration">APIM hybrid deployment</a></li>
+<li><a href="https://artifacthub.io/packages/helm/graviteeio/apim3?modal=values">Full <code>values.yaml</code> example</a></li>
+</ul>
+</div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">docker-compose.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.5&#39;</span><span class="w"></span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}</span><span class="w"></span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gio_apim_gateway</span><span class="w"></span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span><span class="w"></span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8082:8082&quot;</span><span class="w"></span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">      </span><span class="c1"># --- LOGSTASH ---</span><span class="w"></span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_reporters_elasticsearch_enabled=false</span><span class="w"></span>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_reportealert-engine-usernamers_tcp_enabled=true</span><span class="w"></span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_reporters_tcp_host=logstash</span><span class="w"></span>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_reporters_tcp_port=8379</span><span class="w"></span>
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_reporters_tcp_output=elasticsearch</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">gravitee.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span>
+<span class="normal"><a href="#__codelineno-9-6">6</a></span>
+<span class="normal"><a href="#__codelineno-9-7">7</a></span>
+<span class="normal"><a href="#__codelineno-9-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="nt">reporters</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">  </span><span class="nt">elasticsearch</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># Is the reporter enabled or not (default to true)</span><span class="w"></span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">  </span><span class="nt">tcp</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logstash-host</span><span class="w"></span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logstash-port</span><span class="w"></span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">elasticsearch</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<h4 id="rate-limits">Rate limits<a class="headerlink" href="#rate-limits" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Kubernetes (Helm)</label><label for="__tabbed_4_2">Docker</label><label for="__tabbed_4_3">Gateway with <code>gravitee.yml</code> file</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">values.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span>
+<span class="normal"><a href="#__codelineno-10-6">6</a></span>
+<span class="normal"><a href="#__codelineno-10-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="nt">ratelimit</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="nt">redis</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;redis-host&#39;</span><span class="w"></span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6379</span><span class="w"></span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;redis-password&#39;</span><span class="w"></span>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">  </span><span class="nt">download</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Online documentation</p>
+<ul>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_hybrid_deployment.html#configuration">APIM hybrid deployment</a></li>
+<li><a href="https://artifacthub.io/packages/helm/graviteeio/apim3?modal=values">Full <code>values.yaml</code> example</a></li>
+</ul>
+</div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">docker-compose.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span>
+<span class="normal"><a href="#__codelineno-11-14">14</a></span>
+<span class="normal"><a href="#__codelineno-11-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.5&#39;</span><span class="w"></span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}</span><span class="w"></span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gio_apim_gateway</span><span class="w"></span>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span><span class="w"></span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8082:8082&quot;</span><span class="w"></span>
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">      </span><span class="c1"># --- RATE LIMIT REPO ---</span><span class="w"></span>
+<a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_ratelimit_type=redis</span><span class="w"></span>
+<a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_ratelimit_redis_host=redis-host</span><span class="w"></span>
+<a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_ratelimit_redis_port=6379</span><span class="w"></span>
+<a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_ratelimit_redis_password=${REDIS_PASS:-redis-password}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">gravitee.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">6</a></span>
+<span class="normal"><a href="#__codelineno-12-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="nt">ratelimit</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">  </span><span class="c1"># type: hazelcast</span><span class="w"></span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span><span class="nt">redis</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-host</span><span class="w"></span>
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6379</span><span class="w"></span>
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-password</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<h4 id="alert-engine">Alert Engine<a class="headerlink" href="#alert-engine" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Kubernetes (Helm)</label><label for="__tabbed_5_2">Docker</label><label for="__tabbed_5_3">Gateway with <code>gravitee.yml</code> file</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Into the <code>values.yaml</code> configuration file :</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">values.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span>
+<span class="normal"><a href="#__codelineno-13-7">7</a></span>
+<span class="normal"><a href="#__codelineno-13-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="nt">alerts</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">  </span><span class="nt">endpoints</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://alert-engine-url:alert-engine-port</span><span class="w"></span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w">  </span><span class="nt">security</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert-engine-username</span><span class="w"></span>
+<a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert-engine-password</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Online documentation</p>
+<ul>
+<li><a href="https://docs.gravitee.io/ae/apim_installation.html#configuration">Integrate AE with API Management</a></li>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_kubernetes.html">Install APIM on Kubernetes with the Helm Chart</a></li>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_hybrid_kubernetes.html">Deploy a Hybrid architecture in Kubernetes</a></li>
+<li><a href="https://artifacthub.io/packages/helm/graviteeio/apim3?modal=values&amp;path=alerts">Gravitee.io Helm Charts</a></li>
+</ul>
+</div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">docker-compose.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span>
+<span class="normal"><a href="#__codelineno-14-13">13</a></span>
+<span class="normal"><a href="#__codelineno-14-14">14</a></span>
+<span class="normal"><a href="#__codelineno-14-15">15</a></span>
+<span class="normal"><a href="#__codelineno-14-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.5&#39;</span><span class="w"></span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}</span><span class="w"></span>
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gio_apim_gateway</span><span class="w"></span>
+<a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span><span class="w"></span>
+<a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8082:8082&quot;</span><span class="w"></span>
+<a id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-14-11" name="__codelineno-14-11"></a><span class="w">      </span><span class="c1"># --- ALERT ENGINE ---</span><span class="w"></span>
+<a id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_alerts_alertengine_enabled=true</span><span class="w"></span>
+<a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_alerts_alertengine_ws_discovery=true</span><span class="w"></span>
+<a id="__codelineno-14-14" name="__codelineno-14-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_alerts_alertengine_ws_endpoints_0=https://alert-engine-url:alert-engine-port</span><span class="w"></span>
+<a id="__codelineno-14-15" name="__codelineno-14-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_alerts_alertengine_ws_security_username=alert-engine-username</span><span class="w"></span>
+<a id="__codelineno-14-16" name="__codelineno-14-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_alerts_alertengine_ws_security_password=alert-engine-password</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">gravitee.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="nt">alerts</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="w">  </span><span class="nt">alert-engine</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="w">    </span><span class="nt">ws</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="w">      </span><span class="nt">discovery</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="w">      </span><span class="nt">endpoints</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://alert-engine-url:alert-engine-port</span><span class="w"></span>
+<a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="w">      </span><span class="nt">security</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="w">        </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert-engine-username</span><span class="w"></span>
+<a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert-engine-password</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<h4 id="cockpit">Cockpit<a class="headerlink" href="#cockpit" title="Permanent link">&para;</a></h4>
+<div class="admonition info">
+<p class="admonition-title">Follow cockpit instructions</p>
+<p>Please follow directly the instruction you have on cockpit.
+<code>https://cockpit.gravitee.io/accounts/YOUR-ACCOUNT-HRID/installations/how-to</code></p>
+</div>
+<h4 id="full-example">Full example<a class="headerlink" href="#full-example" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:3"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><input id="__tabbed_6_3" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Kubernetes (Helm)</label><label for="__tabbed_6_2">Docker</label><label for="__tabbed_6_3">(VMs) Gateway with <code>gravitee.yml</code> file</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Into the <code>values.yaml</code> configuration file :</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">values.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-16-10">10</a></span>
+<span class="normal"><a href="#__codelineno-16-11">11</a></span>
+<span class="normal"><a href="#__codelineno-16-12">12</a></span>
+<span class="normal"><a href="#__codelineno-16-13">13</a></span>
+<span class="normal"><a href="#__codelineno-16-14">14</a></span>
+<span class="normal"><a href="#__codelineno-16-15">15</a></span>
+<span class="normal"><a href="#__codelineno-16-16">16</a></span>
+<span class="normal"><a href="#__codelineno-16-17">17</a></span>
+<span class="normal"><a href="#__codelineno-16-18">18</a></span>
+<span class="normal"><a href="#__codelineno-16-19">19</a></span>
+<span class="normal"><a href="#__codelineno-16-20">20</a></span>
+<span class="normal"><a href="#__codelineno-16-21">21</a></span>
+<span class="normal"><a href="#__codelineno-16-22">22</a></span>
+<span class="normal"><a href="#__codelineno-16-23">23</a></span>
+<span class="normal"><a href="#__codelineno-16-24">24</a></span>
+<span class="normal"><a href="#__codelineno-16-25">25</a></span>
+<span class="normal"><a href="#__codelineno-16-26">26</a></span>
+<span class="normal"><a href="#__codelineno-16-27">27</a></span>
+<span class="normal"><a href="#__codelineno-16-28">28</a></span>
+<span class="normal"><a href="#__codelineno-16-29">29</a></span>
+<span class="normal"><a href="#__codelineno-16-30">30</a></span>
+<span class="normal"><a href="#__codelineno-16-31">31</a></span>
+<span class="normal"><a href="#__codelineno-16-32">32</a></span>
+<span class="normal"><a href="#__codelineno-16-33">33</a></span>
+<span class="normal"><a href="#__codelineno-16-34">34</a></span>
+<span class="normal"><a href="#__codelineno-16-35">35</a></span>
+<span class="normal"><a href="#__codelineno-16-36">36</a></span>
+<span class="normal"><a href="#__codelineno-16-37">37</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="nt">management</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span><span class="w"></span>
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="nt">gateway</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">  </span><span class="nt">management</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://bridge-gateway-url:bridge-gateway-port</span><span class="w"></span>
+<a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes://&lt;namespace&gt;/secrets/&lt;my-secret-name&gt;/&lt;my-secret-key&gt;</span><span class="w"></span>
+<a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes://&lt;namespace&gt;/secrets/&lt;my-secret-name&gt;/&lt;my-secret-key&gt;</span><span class="w"></span>
+<a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="w">  </span><span class="nt">reporters</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">    </span><span class="nt">elasticsearch</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<a id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="w">    </span><span class="nt">tcp</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-16-14" name="__codelineno-16-14"></a><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logstash</span><span class="w"></span>
+<a id="__codelineno-16-15" name="__codelineno-16-15"></a><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8379</span><span class="w"></span>
+<a id="__codelineno-16-16" name="__codelineno-16-16"></a><span class="w">      </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">elasticsearch</span><span class="w"></span>
+<a id="__codelineno-16-17" name="__codelineno-16-17"></a><span class="nt">ratelimit</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-18" name="__codelineno-16-18"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
+<a id="__codelineno-16-19" name="__codelineno-16-19"></a><span class="nt">redis</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-20" name="__codelineno-16-20"></a><span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;redis-host&#39;</span><span class="w"></span>
+<a id="__codelineno-16-21" name="__codelineno-16-21"></a><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6379</span><span class="w"></span>
+<a id="__codelineno-16-22" name="__codelineno-16-22"></a><span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;redis-password&#39;</span><span class="w"></span>
+<a id="__codelineno-16-23" name="__codelineno-16-23"></a><span class="w">  </span><span class="nt">download</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-16-24" name="__codelineno-16-24"></a><span class="nt">alerts</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-25" name="__codelineno-16-25"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-16-26" name="__codelineno-16-26"></a><span class="w">  </span><span class="nt">endpoints</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-27" name="__codelineno-16-27"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://alert-engine-url:alert-engine-port</span><span class="w"></span>
+<a id="__codelineno-16-28" name="__codelineno-16-28"></a><span class="w">  </span><span class="nt">security</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-29" name="__codelineno-16-29"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-16-30" name="__codelineno-16-30"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert-engine-username</span><span class="w"></span>
+<a id="__codelineno-16-31" name="__codelineno-16-31"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert-engine-password</span><span class="w"></span>
+<a id="__codelineno-16-32" name="__codelineno-16-32"></a><span class="nt">api</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-33" name="__codelineno-16-33"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<a id="__codelineno-16-34" name="__codelineno-16-34"></a><span class="nt">portal</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-35" name="__codelineno-16-35"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<a id="__codelineno-16-36" name="__codelineno-16-36"></a><span class="nt">ui</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-16-37" name="__codelineno-16-37"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Online documentation</p>
+<ul>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_kubernetes.html">Install APIM on Kubernetes with the Helm Chart</a></li>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_hybrid_kubernetes.html">Deploy a Hybrid architecture in Kubernetes</a></li>
+<li><a href="https://artifacthub.io/packages/helm/graviteeio/apim3?modal=values">Gravitee.io Helm Charts - Values Template</a></li>
+</ul>
+</div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">docker-compose.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-17-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-17-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-17-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-17-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-17-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-17-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-17-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-17-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-17-10">10</a></span>
+<span class="normal"><a href="#__codelineno-17-11">11</a></span>
+<span class="normal"><a href="#__codelineno-17-12">12</a></span>
+<span class="normal"><a href="#__codelineno-17-13">13</a></span>
+<span class="normal"><a href="#__codelineno-17-14">14</a></span>
+<span class="normal"><a href="#__codelineno-17-15">15</a></span>
+<span class="normal"><a href="#__codelineno-17-16">16</a></span>
+<span class="normal"><a href="#__codelineno-17-17">17</a></span>
+<span class="normal"><a href="#__codelineno-17-18">18</a></span>
+<span class="normal"><a href="#__codelineno-17-19">19</a></span>
+<span class="normal"><a href="#__codelineno-17-20">20</a></span>
+<span class="normal"><a href="#__codelineno-17-21">21</a></span>
+<span class="normal"><a href="#__codelineno-17-22">22</a></span>
+<span class="normal"><a href="#__codelineno-17-23">23</a></span>
+<span class="normal"><a href="#__codelineno-17-24">24</a></span>
+<span class="normal"><a href="#__codelineno-17-25">25</a></span>
+<span class="normal"><a href="#__codelineno-17-26">26</a></span>
+<span class="normal"><a href="#__codelineno-17-27">27</a></span>
+<span class="normal"><a href="#__codelineno-17-28">28</a></span>
+<span class="normal"><a href="#__codelineno-17-29">29</a></span>
+<span class="normal"><a href="#__codelineno-17-30">30</a></span>
+<span class="normal"><a href="#__codelineno-17-31">31</a></span>
+<span class="normal"><a href="#__codelineno-17-32">32</a></span>
+<span class="normal"><a href="#__codelineno-17-33">33</a></span>
+<span class="normal"><a href="#__codelineno-17-34">34</a></span>
+<span class="normal"><a href="#__codelineno-17-35">35</a></span>
+<span class="normal"><a href="#__codelineno-17-36">36</a></span>
+<span class="normal"><a href="#__codelineno-17-37">37</a></span>
+<span class="normal"><a href="#__codelineno-17-38">38</a></span>
+<span class="normal"><a href="#__codelineno-17-39">39</a></span>
+<span class="normal"><a href="#__codelineno-17-40">40</a></span>
+<span class="normal"><a href="#__codelineno-17-41">41</a></span>
+<span class="normal"><a href="#__codelineno-17-42">42</a></span>
+<span class="normal"><a href="#__codelineno-17-43">43</a></span>
+<span class="normal"><a href="#__codelineno-17-44">44</a></span>
+<span class="normal"><a href="#__codelineno-17-45">45</a></span>
+<span class="normal"><a href="#__codelineno-17-46">46</a></span>
+<span class="normal"><a href="#__codelineno-17-47">47</a></span>
+<span class="normal"><a href="#__codelineno-17-48">48</a></span>
+<span class="normal"><a href="#__codelineno-17-49">49</a></span>
+<span class="normal"><a href="#__codelineno-17-50">50</a></span>
+<span class="normal"><a href="#__codelineno-17-51">51</a></span>
+<span class="normal"><a href="#__codelineno-17-52">52</a></span>
+<span class="normal"><a href="#__codelineno-17-53">53</a></span>
+<span class="normal"><a href="#__codelineno-17-54">54</a></span>
+<span class="normal"><a href="#__codelineno-17-55">55</a></span>
+<span class="normal"><a href="#__codelineno-17-56">56</a></span>
+<span class="normal"><a href="#__codelineno-17-57">57</a></span>
+<span class="normal"><a href="#__codelineno-17-58">58</a></span>
+<span class="normal"><a href="#__codelineno-17-59">59</a></span>
+<span class="normal"><a href="#__codelineno-17-60">60</a></span>
+<span class="normal"><a href="#__codelineno-17-61">61</a></span>
+<span class="normal"><a href="#__codelineno-17-62">62</a></span>
+<span class="normal"><a href="#__codelineno-17-63">63</a></span>
+<span class="normal"><a href="#__codelineno-17-64">64</a></span>
+<span class="normal"><a href="#__codelineno-17-65">65</a></span>
+<span class="normal"><a href="#__codelineno-17-66">66</a></span>
+<span class="normal"><a href="#__codelineno-17-67">67</a></span>
+<span class="normal"><a href="#__codelineno-17-68">68</a></span>
+<span class="normal"><a href="#__codelineno-17-69">69</a></span>
+<span class="normal"><a href="#__codelineno-17-70">70</a></span>
+<span class="normal"><a href="#__codelineno-17-71">71</a></span>
+<span class="normal"><a href="#__codelineno-17-72">72</a></span>
+<span class="normal"><a href="#__codelineno-17-73">73</a></span>
+<span class="normal"><a href="#__codelineno-17-74">74</a></span>
+<span class="normal"><a href="#__codelineno-17-75">75</a></span>
+<span class="normal"><a href="#__codelineno-17-76">76</a></span>
+<span class="normal"><a href="#__codelineno-17-77">77</a></span>
+<span class="normal"><a href="#__codelineno-17-78">78</a></span>
+<span class="normal"><a href="#__codelineno-17-79">79</a></span>
+<span class="normal"><a href="#__codelineno-17-80">80</a></span>
+<span class="normal"><a href="#__codelineno-17-81">81</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.5&#39;</span><span class="w"></span>
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graviteeio/apim-gateway:${APIM_VERSION:-3.18.3}</span><span class="w"></span>
+<a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gio_apim_gateway</span><span class="w"></span>
+<a id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span><span class="w"></span>
+<a id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-9" name="__codelineno-17-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8082:8082&quot;</span><span class="w"></span>
+<a id="__codelineno-17-10" name="__codelineno-17-10"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-11" name="__codelineno-17-11"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rate-limit</span><span class="w"></span>
+<a id="__codelineno-17-12" name="__codelineno-17-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logstash</span><span class="w"></span>
+<a id="__codelineno-17-13" name="__codelineno-17-13"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-14" name="__codelineno-17-14"></a><span class="w">      </span><span class="c1"># --- LOCAL LOG FILES ---</span><span class="w"></span>
+<a id="__codelineno-17-15" name="__codelineno-17-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./logs/apim-gateway-dev:/opt/graviteeio-gateway/logs</span><span class="w"></span>
+<a id="__codelineno-17-16" name="__codelineno-17-16"></a><span class="w">      </span><span class="c1"># --- EE LICENSE FILE ---</span><span class="w"></span>
+<a id="__codelineno-17-17" name="__codelineno-17-17"></a><span class="w">      </span><span class="c1"># - ${GIO_LICENSE}:/opt/graviteeio-gateway/license/license.key</span><span class="w"></span>
+<a id="__codelineno-17-18" name="__codelineno-17-18"></a><span class="w">      </span><span class="c1"># --- ADDITIONAL PLUGINS ---</span><span class="w"></span>
+<a id="__codelineno-17-19" name="__codelineno-17-19"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./plugins:/opt/graviteeio-gateway/plugins-ext</span><span class="w"></span>
+<a id="__codelineno-17-20" name="__codelineno-17-20"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./config/gateway/gravitee.yml:/opt/graviteeio-gateway/config/gravitee.yml:ro</span><span class="w"></span>
+<a id="__codelineno-17-21" name="__codelineno-17-21"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-22" name="__codelineno-17-22"></a><span class="w">      </span><span class="c1"># --- PLUGINS LOCATIONS ---</span><span class="w"></span>
+<a id="__codelineno-17-23" name="__codelineno-17-23"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_plugins_path_0=/opt/graviteeio-gateway/plugins</span><span class="w"></span>
+<a id="__codelineno-17-24" name="__codelineno-17-24"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_plugins_path_1=/opt/graviteeio-gateway/plugins-ext</span><span class="w"></span>
+<a id="__codelineno-17-25" name="__codelineno-17-25"></a><span class="w">      </span><span class="c1"># --- COCKPIT ORGS &amp; ENVS ---</span><span class="w"></span>
+<a id="__codelineno-17-26" name="__codelineno-17-26"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_organizations=dorian-se</span><span class="w"></span>
+<a id="__codelineno-17-27" name="__codelineno-17-27"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_environments=dev</span><span class="w"></span>
+<a id="__codelineno-17-28" name="__codelineno-17-28"></a><span class="w">      </span><span class="c1"># --- SHARDING TAGS &amp; TENANTS ---</span><span class="w"></span>
+<a id="__codelineno-17-29" name="__codelineno-17-29"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_tags=internal</span><span class="w"></span>
+<a id="__codelineno-17-30" name="__codelineno-17-30"></a><span class="w">      </span><span class="c1"># - gravitee_tenant=xxx</span><span class="w"></span>
+<a id="__codelineno-17-31" name="__codelineno-17-31"></a><span class="w">      </span><span class="c1"># --- BRIDGE GATEWAYS ---</span><span class="w"></span>
+<a id="__codelineno-17-32" name="__codelineno-17-32"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_management_type=http</span><span class="w"></span>
+<a id="__codelineno-17-33" name="__codelineno-17-33"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_management_http_url=https://bridge-gateway-url:bridge-gateway-port</span><span class="w"></span>
+<a id="__codelineno-17-34" name="__codelineno-17-34"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_management_http_authentication_basic_username=bridge-gateway-username</span><span class="w"></span>
+<a id="__codelineno-17-35" name="__codelineno-17-35"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_management_http_authentication_basic_password=bridge-gateway-password</span><span class="w"></span>
+<a id="__codelineno-17-36" name="__codelineno-17-36"></a><span class="w">      </span><span class="c1"># --- RATE LIMIT REPO ---</span><span class="w"></span>
+<a id="__codelineno-17-37" name="__codelineno-17-37"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_ratelimit_type=redis</span><span class="w"></span>
+<a id="__codelineno-17-38" name="__codelineno-17-38"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_ratelimit_redis_host=rate-limit</span><span class="w"></span>
+<a id="__codelineno-17-39" name="__codelineno-17-39"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_ratelimit_redis_port=6379</span><span class="w"></span>
+<a id="__codelineno-17-40" name="__codelineno-17-40"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_ratelimit_redis_password=${REDIS_PASS:-redis-password}</span><span class="w"></span>
+<a id="__codelineno-17-41" name="__codelineno-17-41"></a><span class="w">      </span><span class="c1"># - gravitee_ratelimit_type=hazelcast</span><span class="w"></span>
+<a id="__codelineno-17-42" name="__codelineno-17-42"></a><span class="w">      </span><span class="c1"># --- LOGSTASH ---</span><span class="w"></span>
+<a id="__codelineno-17-43" name="__codelineno-17-43"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_reporters_elasticsearch_enabled=false</span><span class="w"></span>
+<a id="__codelineno-17-44" name="__codelineno-17-44"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_reportealert-engine-usernamers_tcp_enabled=true</span><span class="w"></span>
+<a id="__codelineno-17-45" name="__codelineno-17-45"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_reporters_tcp_host=logstash</span><span class="w"></span>
+<a id="__codelineno-17-46" name="__codelineno-17-46"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_reporters_tcp_port=8379</span><span class="w"></span>
+<a id="__codelineno-17-47" name="__codelineno-17-47"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_reporters_tcp_output=elasticsearch</span><span class="w"></span>
+<a id="__codelineno-17-48" name="__codelineno-17-48"></a><span class="w">      </span><span class="c1"># --- ALERT ENGINE ---</span><span class="w"></span>
+<a id="__codelineno-17-49" name="__codelineno-17-49"></a><span class="w">      </span><span class="c1"># - gravitee_alerts_alertengine_enabled=true</span><span class="w"></span>
+<a id="__codelineno-17-50" name="__codelineno-17-50"></a><span class="w">      </span><span class="c1"># - gravitee_alerts_alertengine_ws_discovery=true</span><span class="w"></span>
+<a id="__codelineno-17-51" name="__codelineno-17-51"></a><span class="w">      </span><span class="c1"># - gravitee_alerts_alertengine_ws_endpoints_0=https://alert-engine-url:alert-engine-port</span><span class="w"></span>
+<a id="__codelineno-17-52" name="__codelineno-17-52"></a><span class="w">      </span><span class="c1"># - gravitee_alerts_alertengine_ws_security_username=alert-engine-username</span><span class="w"></span>
+<a id="__codelineno-17-53" name="__codelineno-17-53"></a><span class="w">      </span><span class="c1"># - gravitee_alerts_alertengine_ws_security_password=alert-engine-password</span><span class="w"></span>
+<a id="__codelineno-17-54" name="__codelineno-17-54"></a><span class="w">      </span><span class="c1"># --- SECRETS ---</span><span class="w"></span>
+<a id="__codelineno-17-55" name="__codelineno-17-55"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gravitee_api_properties_encryption_secret=your-own-api-32-caracters-secret</span><span class="w"></span>
+<a id="__codelineno-17-56" name="__codelineno-17-56"></a>
+<a id="__codelineno-17-57" name="__codelineno-17-57"></a><span class="w">  </span><span class="nt">rate-limit</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-58" name="__codelineno-17-58"></a><span class="w">    </span><span class="c1"># https://hub.docker.com/_/redis?tab=tags</span><span class="w"></span>
+<a id="__codelineno-17-59" name="__codelineno-17-59"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:${REDIS_VERSION:-7.0.4-alpine3.16}</span><span class="w"></span>
+<a id="__codelineno-17-60" name="__codelineno-17-60"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gio_ratelimit_redis</span><span class="w"></span>
+<a id="__codelineno-17-61" name="__codelineno-17-61"></a><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
+<a id="__codelineno-17-62" name="__codelineno-17-62"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span><span class="w"></span>
+<a id="__codelineno-17-63" name="__codelineno-17-63"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-64" name="__codelineno-17-64"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;6379:6379&#39;</span><span class="w"></span>
+<a id="__codelineno-17-65" name="__codelineno-17-65"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-server --requirepass ${REDIS_PASS:-redis-password}</span><span class="w"></span>
+<a id="__codelineno-17-66" name="__codelineno-17-66"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span>
+<a id="__codelineno-17-67" name="__codelineno-17-67"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis_data:/data</span><span class="w"></span>
+<a id="__codelineno-17-68" name="__codelineno-17-68"></a>
+<a id="__codelineno-17-69" name="__codelineno-17-69"></a><span class="w">  </span><span class="nt">logstash</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-70" name="__codelineno-17-70"></a><span class="w">    </span><span class="c1"># https://www.docker.elastic.co/r/logstash/logstash-oss </span><span class="w"></span>
+<a id="__codelineno-17-71" name="__codelineno-17-71"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.elastic.co/logstash/logstash-oss:8.3.2</span><span class="w"></span>
+<a id="__codelineno-17-72" name="__codelineno-17-72"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-73" name="__codelineno-17-73"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8379:8379&quot;</span><span class="w"></span>
+<a id="__codelineno-17-74" name="__codelineno-17-74"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-75" name="__codelineno-17-75"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./config/logstash:/usr/share/logstash/pipeline:ro</span><span class="w"></span>
+<a id="__codelineno-17-76" name="__codelineno-17-76"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-77" name="__codelineno-17-77"></a><span class="w">      </span><span class="nt">LS_JAVA_OPTS</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-Xmx256m</span><span class="nv"> </span><span class="s">-Xms256m&quot;</span><span class="w"></span>
+<a id="__codelineno-17-78" name="__codelineno-17-78"></a>
+<a id="__codelineno-17-79" name="__codelineno-17-79"></a><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-80" name="__codelineno-17-80"></a><span class="w">  </span><span class="nt">redis_data</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-17-81" name="__codelineno-17-81"></a><span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">gravitee.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-18-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-18-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-18-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-18-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-18-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-18-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-18-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-18-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-18-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-18-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-18-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-18-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-18-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-18-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-18-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-18-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-18-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-18-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-18-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-18-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-18-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-18-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-18-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-18-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-18-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-18-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-18-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-18-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-18-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-18-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-18-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-18-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-18-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-18-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-18-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-18-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-18-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-18-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-18-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-18-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-18-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-18-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-18-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-18-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-18-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-18-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-18-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-18-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-18-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-18-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-18-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-18-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-18-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-18-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-18-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-18-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-18-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-18-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-18-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-18-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-18-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-18-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-18-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-18-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-18-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-18-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-18-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-18-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-18-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-18-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-18-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-18-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-18-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-18-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-18-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-18-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-18-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-18-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-18-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-18-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-18-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-18-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-18-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-18-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-18-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-18-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-18-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-18-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-18-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-18-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-18-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-18-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-18-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-18-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-18-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-18-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-18-100">100</a></span>
+<span class="normal"><a href="#__codelineno-18-101">101</a></span>
+<span class="normal"><a href="#__codelineno-18-102">102</a></span>
+<span class="normal"><a href="#__codelineno-18-103">103</a></span>
+<span class="normal"><a href="#__codelineno-18-104">104</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="c1">############################################################################################################</span><span class="w"></span>
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="c1">#################################### Gravitee.IO Gateway - Configuration ###################################</span><span class="w"></span>
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="c1">############################################################################################################</span><span class="w"></span>
+<a id="__codelineno-18-4" name="__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="c1">############################################################################################################</span><span class="w"></span>
+<a id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="c1"># This file is the general configuration of Gravitee.IO Gateway:</span><span class="w"></span>
+<a id="__codelineno-18-7" name="__codelineno-18-7"></a><span class="c1"># - Properties (and respective default values) in comment are provided for information.</span><span class="w"></span>
+<a id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="c1"># - You can reference other property by using ${property.name} syntax</span><span class="w"></span>
+<a id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="c1"># - gravitee.home property is automatically set-up by launcher and refers to the installation path. Do not override it !</span><span class="w"></span>
+<a id="__codelineno-18-10" name="__codelineno-18-10"></a><span class="c1">#</span><span class="w"></span>
+<a id="__codelineno-18-11" name="__codelineno-18-11"></a><span class="c1"># Please have a look to http://docs.gravitee.io/ for more options and fine-grained granularity</span><span class="w"></span>
+<a id="__codelineno-18-12" name="__codelineno-18-12"></a><span class="c1">############################################################################################################</span><span class="w"></span>
+<a id="__codelineno-18-13" name="__codelineno-18-13"></a>
+<a id="__codelineno-18-14" name="__codelineno-18-14"></a><span class="nt">organizations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cockpit-org-hrid</span><span class="w"></span>
+<a id="__codelineno-18-15" name="__codelineno-18-15"></a><span class="nt">environments</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cockpit-env-hrid</span><span class="w"></span>
+<a id="__codelineno-18-16" name="__codelineno-18-16"></a><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your, sharding, tags</span><span class="w"> </span><span class="c1">#example: internal</span><span class="w"></span>
+<a id="__codelineno-18-17" name="__codelineno-18-17"></a>
+<a id="__codelineno-18-18" name="__codelineno-18-18"></a><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-19" name="__codelineno-18-19"></a><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-20" name="__codelineno-18-20"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/graviteeio-gateway/plugins</span><span class="w"></span>
+<a id="__codelineno-18-21" name="__codelineno-18-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/graviteeio-gateway/plugins-ext</span><span class="w"></span>
+<a id="__codelineno-18-22" name="__codelineno-18-22"></a>
+<a id="__codelineno-18-23" name="__codelineno-18-23"></a><span class="nt">management</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-24" name="__codelineno-18-24"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span><span class="w"></span>
+<a id="__codelineno-18-25" name="__codelineno-18-25"></a><span class="w">  </span><span class="nt">http</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-26" name="__codelineno-18-26"></a><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://bridge-gateway-url:bridge-gateway-port</span><span class="w"> </span>
+<a id="__codelineno-18-27" name="__codelineno-18-27"></a><span class="w">    </span><span class="nt">authentication</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-28" name="__codelineno-18-28"></a><span class="w">      </span><span class="nt">basic</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-29" name="__codelineno-18-29"></a><span class="w">        </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge-gateway-username</span><span class="w"></span>
+<a id="__codelineno-18-30" name="__codelineno-18-30"></a><span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge-gateway-password</span><span class="w"></span>
+<a id="__codelineno-18-31" name="__codelineno-18-31"></a>
+<a id="__codelineno-18-32" name="__codelineno-18-32"></a><span class="nt">ratelimit</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-33" name="__codelineno-18-33"></a><span class="w">  </span><span class="c1"># type: hazelcast</span><span class="w"></span>
+<a id="__codelineno-18-34" name="__codelineno-18-34"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
+<a id="__codelineno-18-35" name="__codelineno-18-35"></a><span class="w">  </span><span class="nt">redis</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-36" name="__codelineno-18-36"></a><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-host</span><span class="w"></span>
+<a id="__codelineno-18-37" name="__codelineno-18-37"></a><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6379</span><span class="w"></span>
+<a id="__codelineno-18-38" name="__codelineno-18-38"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-password</span><span class="w"></span>
+<a id="__codelineno-18-39" name="__codelineno-18-39"></a>
+<a id="__codelineno-18-40" name="__codelineno-18-40"></a><span class="nt">cache</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-41" name="__codelineno-18-41"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ehcache</span><span class="w"></span>
+<a id="__codelineno-18-42" name="__codelineno-18-42"></a>
+<a id="__codelineno-18-43" name="__codelineno-18-43"></a><span class="nt">reporters</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-44" name="__codelineno-18-44"></a><span class="w">  </span><span class="nt">elasticsearch</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-45" name="__codelineno-18-45"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># Is the reporter enabled or not (default to true)</span><span class="w"></span>
+<a id="__codelineno-18-46" name="__codelineno-18-46"></a><span class="w">  </span><span class="nt">tcp</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-47" name="__codelineno-18-47"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-18-48" name="__codelineno-18-48"></a><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logstash-host</span><span class="w"></span>
+<a id="__codelineno-18-49" name="__codelineno-18-49"></a><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logstash-port</span><span class="w"></span>
+<a id="__codelineno-18-50" name="__codelineno-18-50"></a><span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">elasticsearch</span><span class="w"></span>
+<a id="__codelineno-18-51" name="__codelineno-18-51"></a>
+<a id="__codelineno-18-52" name="__codelineno-18-52"></a><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-53" name="__codelineno-18-53"></a><span class="w">  </span><span class="nt">core</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-54" name="__codelineno-18-54"></a><span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-55" name="__codelineno-18-55"></a><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-18-56" name="__codelineno-18-56"></a><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">18082</span><span class="w"></span>
+<a id="__codelineno-18-57" name="__codelineno-18-57"></a><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span><span class="w"></span>
+<a id="__codelineno-18-58" name="__codelineno-18-58"></a><span class="w">      </span><span class="nt">authentication</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-59" name="__codelineno-18-59"></a><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span><span class="w"></span>
+<a id="__codelineno-18-60" name="__codelineno-18-60"></a><span class="w">        </span><span class="nt">users</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-61" name="__codelineno-18-61"></a><span class="w">          </span><span class="nt">admin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">internal-api-password</span><span class="w"></span>
+<a id="__codelineno-18-62" name="__codelineno-18-62"></a>
+<a id="__codelineno-18-63" name="__codelineno-18-63"></a><span class="w">  </span><span class="nt">sync</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-64" name="__codelineno-18-64"></a><span class="w">    </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span><span class="w"></span>
+<a id="__codelineno-18-65" name="__codelineno-18-65"></a><span class="w">    </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MILLISECONDS</span><span class="w"></span>
+<a id="__codelineno-18-66" name="__codelineno-18-66"></a><span class="w">    </span><span class="nt">distributed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># By enabling this mode, data synchronization process is distributed over clustered API gateways.</span><span class="w"></span>
+<a id="__codelineno-18-67" name="__codelineno-18-67"></a><span class="w">    </span><span class="nt">bulk_items</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w"> </span><span class="c1"># Defines the number of items to retrieve during synchronization (events, plans, api keys, ...).</span><span class="w"></span>
+<a id="__codelineno-18-68" name="__codelineno-18-68"></a>
+<a id="__codelineno-18-69" name="__codelineno-18-69"></a><span class="w">  </span><span class="nt">local</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-70" name="__codelineno-18-70"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<a id="__codelineno-18-71" name="__codelineno-18-71"></a><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${gravitee.home}/apis</span><span class="w"> </span><span class="c1"># The path to API descriptors</span><span class="w"></span>
+<a id="__codelineno-18-72" name="__codelineno-18-72"></a>
+<a id="__codelineno-18-73" name="__codelineno-18-73"></a><span class="w">  </span><span class="nt">monitoring</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-74" name="__codelineno-18-74"></a><span class="w">    </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span><span class="w"></span>
+<a id="__codelineno-18-75" name="__codelineno-18-75"></a><span class="w">    </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MILLISECONDS</span><span class="w"></span>
+<a id="__codelineno-18-76" name="__codelineno-18-76"></a><span class="w">    </span><span class="nt">distributed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># By enabling this mode, data monitoring gathering process is distributed over clustered API gateways.</span><span class="w"></span>
+<a id="__codelineno-18-77" name="__codelineno-18-77"></a>
+<a id="__codelineno-18-78" name="__codelineno-18-78"></a><span class="w">  </span><span class="nt">metrics</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-79" name="__codelineno-18-79"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<a id="__codelineno-18-80" name="__codelineno-18-80"></a><span class="w">    </span><span class="nt">prometheus</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-81" name="__codelineno-18-81"></a><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-18-82" name="__codelineno-18-82"></a>
+<a id="__codelineno-18-83" name="__codelineno-18-83"></a><span class="w">  </span><span class="nt">tracing</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-84" name="__codelineno-18-84"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<a id="__codelineno-18-85" name="__codelineno-18-85"></a>
+<a id="__codelineno-18-86" name="__codelineno-18-86"></a><span class="nt">api</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-87" name="__codelineno-18-87"></a><span class="w">  </span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-88" name="__codelineno-18-88"></a><span class="w">    </span><span class="nt">encryption</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-89" name="__codelineno-18-89"></a><span class="w">      </span><span class="nt">secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-own-api-32-caracters-secret</span><span class="w"></span>
+<a id="__codelineno-18-90" name="__codelineno-18-90"></a>
+<a id="__codelineno-18-91" name="__codelineno-18-91"></a><span class="nt">alerts</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-92" name="__codelineno-18-92"></a><span class="w">  </span><span class="nt">alert-engine</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-93" name="__codelineno-18-93"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-18-94" name="__codelineno-18-94"></a><span class="w">    </span><span class="nt">ws</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-95" name="__codelineno-18-95"></a><span class="w">      </span><span class="nt">discovery</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<a id="__codelineno-18-96" name="__codelineno-18-96"></a><span class="w">      </span><span class="nt">endpoints</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-97" name="__codelineno-18-97"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://alert-engine-url:alert-engine-port</span><span class="w"></span>
+<a id="__codelineno-18-98" name="__codelineno-18-98"></a><span class="w">      </span><span class="nt">security</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-99" name="__codelineno-18-99"></a><span class="w">        </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert-engine-username</span><span class="w"></span>
+<a id="__codelineno-18-100" name="__codelineno-18-100"></a><span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert-engine-password</span><span class="w"></span>
+<a id="__codelineno-18-101" name="__codelineno-18-101"></a>
+<a id="__codelineno-18-102" name="__codelineno-18-102"></a><span class="nt">classloader</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-103" name="__codelineno-18-103"></a><span class="w">  </span><span class="nt">legacy</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-18-104" name="__codelineno-18-104"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<h2 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h2>
+<h3 id="installation_1">Installation<a class="headerlink" href="#installation_1" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:3"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><input id="__tabbed_7_3" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Kubernetes (Helm)</label><label for="__tabbed_7_2">Docker</label><label for="__tabbed_7_3">VM</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li><a href="https://artifacthub.io/packages/helm/bitnami/redis">Bitnami helm charts</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">docker-compose.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-19-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-19-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-19-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-19-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-19-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-19-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-19-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-19-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-19-10">10</a></span>
+<span class="normal"><a href="#__codelineno-19-11">11</a></span>
+<span class="normal"><a href="#__codelineno-19-12">12</a></span>
+<span class="normal"><a href="#__codelineno-19-13">13</a></span>
+<span class="normal"><a href="#__codelineno-19-14">14</a></span>
+<span class="normal"><a href="#__codelineno-19-15">15</a></span>
+<span class="normal"><a href="#__codelineno-19-16">16</a></span>
+<span class="normal"><a href="#__codelineno-19-17">17</a></span>
+<span class="normal"><a href="#__codelineno-19-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.5&#39;</span><span class="w"></span>
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>
+<a id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="w">  </span><span class="nt">rate-limit</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="w">    </span><span class="c1"># https://hub.docker.com/_/redis?tab=tags</span><span class="w"></span>
+<a id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:${REDIS_VERSION:-7.0.4-alpine3.16}</span><span class="w"></span>
+<a id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gio_ratelimit_redis</span><span class="w"></span>
+<a id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
+<a id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span><span class="w"></span>
+<a id="__codelineno-19-10" name="__codelineno-19-10"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-19-11" name="__codelineno-19-11"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;6379:6379&#39;</span><span class="w"></span>
+<a id="__codelineno-19-12" name="__codelineno-19-12"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-server --requirepass ${REDIS_PASS:-redis-password}</span><span class="w"></span>
+<a id="__codelineno-19-13" name="__codelineno-19-13"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span>
+<a id="__codelineno-19-14" name="__codelineno-19-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis_data:/data</span><span class="w"></span>
+<a id="__codelineno-19-15" name="__codelineno-19-15"></a>
+<a id="__codelineno-19-16" name="__codelineno-19-16"></a><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-19-17" name="__codelineno-19-17"></a><span class="w">  </span><span class="nt">redis_data</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-19-18" name="__codelineno-19-18"></a><span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<ul>
+<li><a href="https://redis.io/docs/getting-started/installation/">Installing Redis from redis.io</a></li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id="configuration_1">Configuration<a class="headerlink" href="#configuration_1" title="Permanent link">&para;</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Easy peasy</p>
+<p>No specific configuration is needed.</p>
+</div>
+<h2 id="logstash">Logstash<a class="headerlink" href="#logstash" title="Permanent link">&para;</a></h2>
+<h3 id="installation_2">Installation<a class="headerlink" href="#installation_2" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:3"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><input id="__tabbed_8_3" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Kubernetes (Helm)</label><label for="__tabbed_8_2">Docker</label><label for="__tabbed_8_3">VM</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li><a href="https://artifacthub.io/packages/helm/elastic/logstash#how-to-install-oss-version-of-logstash">Official helm charts</a></li>
+<li><a href="https://bitnami.com/stack/logstash/helm">Bitnami helm charts</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">docker-compose.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-20-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-20-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-20-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-20-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-20-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-20-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-20-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-20-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-20-10">10</a></span>
+<span class="normal"><a href="#__codelineno-20-11">11</a></span>
+<span class="normal"><a href="#__codelineno-20-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.5&#39;</span><span class="w"></span>
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a>
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="w">  </span><span class="nt">logstash</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="w">    </span><span class="c1"># https://www.docker.elastic.co/r/logstash/logstash-oss </span><span class="w"></span>
+<a id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.elastic.co/logstash/logstash-oss:8.3.2</span><span class="w"></span>
+<a id="__codelineno-20-7" name="__codelineno-20-7"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-20-8" name="__codelineno-20-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8379:8379&quot;</span><span class="w"></span>
+<a id="__codelineno-20-9" name="__codelineno-20-9"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-20-10" name="__codelineno-20-10"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./config/logstash:/usr/share/logstash/pipeline:ro</span><span class="w"></span>
+<a id="__codelineno-20-11" name="__codelineno-20-11"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-20-12" name="__codelineno-20-12"></a><span class="w">      </span><span class="nt">LS_JAVA_OPTS</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-Xmx256m</span><span class="nv"> </span><span class="s">-Xms256m&quot;</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<ul>
+<li><a href="https://www.elastic.co/downloads/logstash-oss">Download Logstash OSS</a></li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id="configuration_2">Configuration<a class="headerlink" href="#configuration_2" title="Permanent link">&para;</a></h3>
+<!-- === "Input File - Output Stdout"
+
+    <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">uptime.conf</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-21-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-21-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-21-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-21-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-21-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-21-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-21-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-21-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-21-10">10</a></span>
+<span class="normal"><a href="#__codelineno-21-11">11</a></span>
+<span class="normal"><a href="#__codelineno-21-12">12</a></span>
+<span class="normal"><a href="#__codelineno-21-13">13</a></span>
+<span class="normal"><a href="#__codelineno-21-14">14</a></span>
+<span class="normal"><a href="#__codelineno-21-15">15</a></span>
+<span class="normal"><a href="#__codelineno-21-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>input { 
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>  file {
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a>    start_position =&gt; &quot;beginning&quot;
+<a id="__codelineno-21-4" name="__codelineno-21-4"></a>    path =&gt; &quot;/gravitee/reporter/*.json&quot;
+<a id="__codelineno-21-5" name="__codelineno-21-5"></a>  }
+<a id="__codelineno-21-6" name="__codelineno-21-6"></a>}
+<a id="__codelineno-21-7" name="__codelineno-21-7"></a>
+<a id="__codelineno-21-8" name="__codelineno-21-8"></a>filter {
+<a id="__codelineno-21-9" name="__codelineno-21-9"></a>  mutate {
+<a id="__codelineno-21-10" name="__codelineno-21-10"></a>    add_field =&gt; { &quot;environment&quot; =&gt; &quot;ugap_&lt;ENV&gt;_apim&quot; }
+<a id="__codelineno-21-11" name="__codelineno-21-11"></a>  }
+<a id="__codelineno-21-12" name="__codelineno-21-12"></a>}
+<a id="__codelineno-21-13" name="__codelineno-21-13"></a>
+<a id="__codelineno-21-14" name="__codelineno-21-14"></a>output {
+<a id="__codelineno-21-15" name="__codelineno-21-15"></a>  stdout {}
+<a id="__codelineno-21-16" name="__codelineno-21-16"></a>}
+</code></pre></div></td></tr></table></div>
+
+=== "Input TCP - Output Elastc Search"
+
+    <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">uptime.conf</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-22-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-22-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-22-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-22-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-22-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-22-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-22-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-22-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-22-10">10</a></span>
+<span class="normal"><a href="#__codelineno-22-11">11</a></span>
+<span class="normal"><a href="#__codelineno-22-12">12</a></span>
+<span class="normal"><a href="#__codelineno-22-13">13</a></span>
+<span class="normal"><a href="#__codelineno-22-14">14</a></span>
+<span class="normal"><a href="#__codelineno-22-15">15</a></span>
+<span class="normal"><a href="#__codelineno-22-16">16</a></span>
+<span class="normal"><a href="#__codelineno-22-17">17</a></span>
+<span class="normal"><a href="#__codelineno-22-18">18</a></span>
+<span class="normal"><a href="#__codelineno-22-19">19</a></span>
+<span class="normal"><a href="#__codelineno-22-20">20</a></span>
+<span class="normal"><a href="#__codelineno-22-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>input {
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a>  tcp {
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a>      port =&gt; 8379
+<a id="__codelineno-22-4" name="__codelineno-22-4"></a>      codec =&gt; &quot;json&quot;
+<a id="__codelineno-22-5" name="__codelineno-22-5"></a>  }
+<a id="__codelineno-22-6" name="__codelineno-22-6"></a>}
+<a id="__codelineno-22-7" name="__codelineno-22-7"></a>
+<a id="__codelineno-22-8" name="__codelineno-22-8"></a>filter {
+<a id="__codelineno-22-9" name="__codelineno-22-9"></a>    if [type] != &quot;request&quot; {
+<a id="__codelineno-22-10" name="__codelineno-22-10"></a>        mutate { remove_field =&gt; [&quot;path&quot;, &quot;host&quot;] }
+<a id="__codelineno-22-11" name="__codelineno-22-11"></a>    }
+<a id="__codelineno-22-12" name="__codelineno-22-12"></a>}
+<a id="__codelineno-22-13" name="__codelineno-22-13"></a>
+<a id="__codelineno-22-14" name="__codelineno-22-14"></a>output {
+<a id="__codelineno-22-15" name="__codelineno-22-15"></a>  elasticsearch {
+<a id="__codelineno-22-16" name="__codelineno-22-16"></a>    hosts =&gt; [&quot;${ES_HOSTS}&quot;]
+<a id="__codelineno-22-17" name="__codelineno-22-17"></a>    user =&gt; &quot;${ES_USER}&quot;
+<a id="__codelineno-22-18" name="__codelineno-22-18"></a>    password =&gt; &quot;${ES_PASSWORD}&quot;
+<a id="__codelineno-22-19" name="__codelineno-22-19"></a>    index =&gt; &quot;%{[@metadata][target_index]}&quot;
+<a id="__codelineno-22-20" name="__codelineno-22-20"></a>  }
+<a id="__codelineno-22-21" name="__codelineno-22-21"></a>}
+</code></pre></div></td></tr></table></div>
+
+=== "Input File - Output S3 bucket"
+
+    ```text title="uptime.conf" linenums="1"
+    input { 
+      file {
+        start_position => "beginning"
+        path => "/gravitee/reporter/*.json"
+      }
+    }
+
+    filter {
+        if [type] != "request" {
+            mutate { remove_field => ["path", "host"] }
+        }
+    }
+
+    output {
+      s3 {
+        access_key_id => "${S3_ACEESS_KEY_ID}"
+        secret_access_key => "${S3_SECRET_ACCESS_KEY}"
+        region => "${S3_REGION}"
+        bucket => "${S3_BUCKET_NAME}"
+        size_file => 10485760
+        codec => "json_lines"
+      }
+    }
+    ``` -->
+
+<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Input TCP - Output S3 bucket</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">logstash.conf</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-23-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-23-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-23-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-23-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-23-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-23-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-23-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-23-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-23-10">10</a></span>
+<span class="normal"><a href="#__codelineno-23-11">11</a></span>
+<span class="normal"><a href="#__codelineno-23-12">12</a></span>
+<span class="normal"><a href="#__codelineno-23-13">13</a></span>
+<span class="normal"><a href="#__codelineno-23-14">14</a></span>
+<span class="normal"><a href="#__codelineno-23-15">15</a></span>
+<span class="normal"><a href="#__codelineno-23-16">16</a></span>
+<span class="normal"><a href="#__codelineno-23-17">17</a></span>
+<span class="normal"><a href="#__codelineno-23-18">18</a></span>
+<span class="normal"><a href="#__codelineno-23-19">19</a></span>
+<span class="normal"><a href="#__codelineno-23-20">20</a></span>
+<span class="normal"><a href="#__codelineno-23-21">21</a></span>
+<span class="normal"><a href="#__codelineno-23-22">22</a></span>
+<span class="normal"><a href="#__codelineno-23-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>input {
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>  tcp {
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a>      port =&gt; 8379
+<a id="__codelineno-23-4" name="__codelineno-23-4"></a>      codec =&gt; &quot;json&quot;
+<a id="__codelineno-23-5" name="__codelineno-23-5"></a>  }
+<a id="__codelineno-23-6" name="__codelineno-23-6"></a>}
+<a id="__codelineno-23-7" name="__codelineno-23-7"></a>
+<a id="__codelineno-23-8" name="__codelineno-23-8"></a>filter {
+<a id="__codelineno-23-9" name="__codelineno-23-9"></a>    if [type] != &quot;request&quot; {
+<a id="__codelineno-23-10" name="__codelineno-23-10"></a>        mutate { remove_field =&gt; [&quot;path&quot;, &quot;host&quot;] }
+<a id="__codelineno-23-11" name="__codelineno-23-11"></a>    }
+<a id="__codelineno-23-12" name="__codelineno-23-12"></a>}
+<a id="__codelineno-23-13" name="__codelineno-23-13"></a>
+<a id="__codelineno-23-14" name="__codelineno-23-14"></a>output {
+<a id="__codelineno-23-15" name="__codelineno-23-15"></a>  s3 {
+<a id="__codelineno-23-16" name="__codelineno-23-16"></a>    access_key_id =&gt; &quot;${S3_ACEESS_KEY_ID}&quot;
+<a id="__codelineno-23-17" name="__codelineno-23-17"></a>    secret_access_key =&gt; &quot;${S3_SECRET_ACCESS_KEY}&quot;
+<a id="__codelineno-23-18" name="__codelineno-23-18"></a>    region =&gt; &quot;${S3_REGION}&quot;
+<a id="__codelineno-23-19" name="__codelineno-23-19"></a>    bucket =&gt; &quot;${S3_BUCKET_NAME}&quot;
+<a id="__codelineno-23-20" name="__codelineno-23-20"></a>    size_file =&gt; 10485760
+<a id="__codelineno-23-21" name="__codelineno-23-21"></a>    codec =&gt; &quot;json_lines&quot;
+<a id="__codelineno-23-22" name="__codelineno-23-22"></a>  }
+<a id="__codelineno-23-23" name="__codelineno-23-23"></a>}
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Online documentation</p>
+<ul>
+<li><a href="https://www.elastic.co/guide/en/logstash/current/configuration.html">Configuring Logstash</a></li>
+</ul>
+</div>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../" class="md-footer__link md-footer__link--prev" aria-label="Previous: API Management" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              API Management
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../reference-architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Reference Architecture" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Reference Architecture
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/GraviteeIO" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.youtube.com/c/Graviteesource" target="_blank" rel="noopener" title="www.youtube.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/gravitee-io" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.instagram.com/gravitee.io" target="_blank" rel="noopener" title="www.instagram.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://hub.docker.com/u/graviteeio" target="_blank" rel="noopener" title="hub.docker.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/gravitee-io" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.gravitee.io" target="_blank" rel="noopener" title="www.gravitee.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M172.5 131.1c55.6-55.59 148-55.59 203.6 0 50 50 57.4 129.7 16.3 187.2l-1.1 1.6c-10.3 14.3-30.3 17.7-44.6 7.4-14.4-10.3-17.8-30.3-7.5-44.6l1.1-1.6c22.9-32.1 19.3-76-8.6-103.9-31.4-31.4-82.5-31.4-114 0L105.5 289.5c-31.51 30.6-31.51 82.5 0 114 27.8 27.9 71.8 31.5 103.8 8.6l1.6-2c14.4-9.4 34.4-6.1 44.6 8.3 10.3 14.4 7 34.4-7.4 44.7l-1.6 1.1c-58.4 41.1-136.3 34.5-186.29-15.4-56.469-56.5-56.469-148.1 0-204.5L172.5 131.1zm295 248.9c-56.5 56.5-148 56.5-204.5 0-50-50-56.5-128.8-15.4-186.3l1.1-1.6c9.4-14.3 29.4-17.7 44.6-7.4 14.4 9.4 17.8 29.4 7.5 44.6l-1.1 1.6c-22.9 31.2-19.3 76 8.6 103.9 31.4 31.4 82.5 31.4 114 0l112.2-112.3c31.5-31.5 31.5-83.4 0-114-27.8-27.87-71.8-31.51-103.8-8.6l-1.6 1.1c-14.4 10.3-34.4 6.1-44.6-7.42-10.3-14.38-7-34.37 7.4-44.64l1.6-1.12C451 6.731 529.8 13.25 579.8 63.24c56.5 56.46 56.5 148.06 0 204.46L467.5 380z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.indexes", "navigation.tabs", "navigation.top", "content.code.annotate", "search.suggest", "search.share", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.0bc13b87.min.js"></script>
+      
+    
+  </body>
+</html>
