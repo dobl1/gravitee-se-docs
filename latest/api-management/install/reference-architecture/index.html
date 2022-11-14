@@ -917,10 +917,10 @@
 <h4 id="3-detection-of-failures-as-they-occur">3. Detection of failures as they occur<a class="headerlink" href="#3-detection-of-failures-as-they-occur" title="Permanent link">&para;</a></h4>
 <p>Active monitoring of G.io APIm gateways and mAPI health using :</p>
 <ul>
-<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_gateway_technical_api.html">Gateway internal API</a>, a RESTful endpoint to get node status`<ul>
+<li><a href="https://docs.gravitee.io/apim/3.x/apim_installguide_gateway_technical_api.html">Gateway internal API</a>, a RESTful endpoint to get node status :<ul>
 <li><strong>GET /_node</strong> : Gets generic node information : version, revision, name, …</li>
 <li><strong>GET /_node/health?probes=#probe1,...</strong> : Gets the health status. Probes can be filtered using the optional probes query param.</li>
-<li><strong>GET /_node/monitor</strong> : Gets monitoring information from the JVM and the server._</li>
+<li><strong>GET /_node/monitor</strong> : Gets monitoring information from the JVM and the server.</li>
 <li><strong>GET /_node/apis</strong> : Gets the APIs deployed and their config on this APIM Gateway instance.</li>
 </ul>
 </li>
