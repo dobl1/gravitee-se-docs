@@ -4,3 +4,9 @@ docs/.DS_Store
 site/
 
 .DS_Store
+
+deploy-tests/Docker/config/nginx/certs/
+
+deploy-tests/Docker/.env
+
+deploy-tests/Docker/plugins/.work/

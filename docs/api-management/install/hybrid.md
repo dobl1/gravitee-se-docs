@@ -1,9 +1,9 @@
 ---
 title: APIm Hybrid Deployment Guide
 tags:
-  - API Management
-  - OSS
   - Hybrid
+hide:
+  - footer
 ---
 
 # APIm Hybrid Deployment Guide
@@ -11,73 +11,14 @@ tags:
 !!! info "Introduction"
     This documentation page relates to the installation of the client (On-Prem / Private Cloud) part of the API Management platform in a Hybrid architecture (SaaS + On-prem / Private cloud).
 
-## Hybrid Architecture
+## Architecture
 
-![Hybrid Architecture](./../../assets/hybrid-architecture.svg)
+!!! Info "Architecture"
+    You can find all architecture information (components descriptions, diagrams) in the [architecture section](../architecture/hybrid.md).
 
-<!-- 
-    ``` mermaid
-    flowchart LR
-      subgraph "SaaS Shared"
-        CP[Cockpit]
-        AD[API Designer]
-      end
-      subgraph "SaaS Dedicated"
-        CDB[(Config Database)]
-        ADB[(Analytics Database)]
-        S3[(S3 Bucket)]
-        SGW[SaaS API Gateways]
-        BGW[Bridge Gateways]
-        MAPI[Management API]-->CDB
-        MAPI-->ADB
-        CS[Admin Console]-->MAPI
-        DEVP[Dev Portal]-->MAPI
-        AE[Alert Engine]<-->SGW
-        SGW<-->CDB
-        SGW<-->ADB
-        BGW<-->CDB
-        BGW<-->ADB
-      end
-      subgraph "On-prem / Private Cloud"
-        RLDB[(Rate Limits Database)]
-        LGW[API Gateways]<-->RLDB
-        LOG[Logstash]-->LGW
-      end
-      LGW-->BGW
-      CP-->SGW
-      CP--->LGW
-      AE<-->LGW
-      LOG-->S3-->ADB
-      AD-->MAPI
-    ```
--->
+## Hybrid Architecture Self-Hosted (Hybrid) gateway
 
-### SaaS Components
 
-|                    Component                    | Description                                                  |
-| :---------------------------------------------: | ------------------------------------------------------------ |
-| Administration Console<br />(for API producers) | This web UI gives easy access to some key [APIM API](https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-rest-api) services. [API Publishers](https://docs.gravitee.io/apim/3.x/apim_overview_concepts.html#gravitee-concepts-publisher) can use it to publish APIs.<br />Administrators can also configure global platform settings and specific portal settings. |
-|    Dev / API Portal<br />(for API consumers)    | This web UI gives easy access to some key [APIM API](https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-rest-api) services. [API Consumers](https://docs.gravitee.io/apim/3.x/apim_overview_concepts.html#gravitee-concepts-consumer) can use it to search for, view, try out and subscribe to a published API.<br />They can also use it to manage their [applications](https://docs.gravitee.io/apim/3.x/apim_overview_concepts.html#gravitee-concepts-application). |
-|                 Management API                  | This RESTful API exposes services to manage and configure the [APIM Console](https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-mgmt-ui) and [APIM Portal](https://docs.gravitee.io/apim/3.x/apim_overview_components.html#gravitee-components-portal-ui) web UIs.<br />All exposed services are restricted by authentication and authorization rules. For more information, see the [API Reference](https://docs.gravitee.io/apim/3.x/apim_installguide_rest_apis_documentation.html) section. |
-|                SaaS API Gateways                | APIM Gateway is the core component of the APIM platform. You can think of it like a smart proxy.<br /><br />Unlike a traditional HTTP proxy, APIM Gateway has the capability to apply [policies](https://docs.gravitee.io/apim/3.x/apim_overview_plugins.html#gravitee-plugins-policies) (i.e., rules) to both HTTP requests and responses according to your needs. With these policies, you can enhance request and response processing by adding transformations, security, and many other exciting features. |
-|                 Bridge Gateways                 | A *bridge* API Gateway exposes extra HTTP services for bridging HTTP calls to the underlying repository (which can be any of our supported repositories: MongoDB, JDBC and so on) |
-|                 Config Database                 | All the API Management platform management data, such as API definitions, users, applications and plans. |
-|         S3 Bucket + Analytics Database          | Analytics and logs data                                      |
-|             [Optional]<br />Cockpit             | Cockpit is a centralized, multi-environments / organizations tool for managing all your Gravitee API Management and Access Management installations in a single place. |
-|          [Optional]<br />API Designer           | Drag-and-Drop graphical (MindMap based) API designer to quickly and intuitively design your APIs (Swagger / OAS) and even deploy mocked APIs for quick testing. |
-|          [Optional]<br />Alert Engine           | Alert Engine (AE) provides APIM and AM users with efficient and flexible API platform monitoring, including advanced alerting configuration and notifications sent through their preferred channels, such as email, Slack and using Webhooks.<br />AE does not require any external components or a database as it does not store anything. It receives events and sends notifications under the conditions which have been pre-configured upstream with triggers. |
-
-### On-prem / Private cloud components
-
-|        Component         | Description                                                  |
-| :----------------------: | ------------------------------------------------------------ |
-| Gravitee.io APIm Gaetway | APIM Gateway is the core component of the APIM platform, smartly proxing trafic applying policies. |
-|         Logstash         | Collect and send local Gateways logs and metrics to the Gravitee.io APIM SaaS Control Plane. |
-|          Redis           | Database use locally for rate limits synchronized counters (RateLimit, Quota, Spike Arrest) and optionnaly as an external cache for the [Cache policy](https://docs.gravitee.io/apim/3.x/apim_resources_cache_redis.html#redis_cache_resource). |
-
-![Hybrid Architecture Connections](./../../assets/hybrid-architecture-connections.svg)
-
-## Self-Hosted (Hybrid) gateway
 
 ### Installation
 
@@ -152,6 +93,7 @@ There is at least 3 connections to configure :
 -  The connection to push Analytics and Logs with file or tcp reporter pushing data for logstash to send them to the SaaS storage.
 -  The connection the local rate limits database.
 -  [Optional] The connection to the SaaS Alert Engine.
+-  [Optional] The connection to the SaaS Cockpit
 
 #### Management
 
@@ -180,11 +122,8 @@ There is at least 3 connections to configure :
           #     path: ${gravitee.home}/security/truststore.jks
           #     password: secret
           # proxy:
-          #   host:
-          #   port:
-          #   type: http
-          #   username:
-          #   password:
+          #   host: bridge-gateway-proxy-host
+          #   port: bridge-gateway-proxy-port
     ```
     
     !!! note "Online documentation"
@@ -210,6 +149,8 @@ There is at least 3 connections to configure :
           - gravitee_management_http_url=https://bridge-gateway-url:bridge-gateway-port
           - gravitee_management_http_authentication_basic_username=bridge-gateway-username
           - gravitee_management_http_authentication_basic_password=bridge-gateway-password
+          # - gravitee_management_http_proxy_host=bridge-gateway-proxy-host
+          # - gravitee_management_http_proxy_port=bridge-gateway-proxy-port
     ```
 
 === "Gateway with `gravitee.yml` file"
@@ -228,6 +169,9 @@ There is at least 3 connections to configure :
           basic:
             username: bridge-gateway-username
             password: bridge-gateway-password
+        proxy:
+          host: bridge-gateway-proxy-host
+          port: bridge-gateway-proxy-port
         ssl:
           trustAll: true
           verifyHostname: true
@@ -448,11 +392,20 @@ There is at least 3 connections to configure :
           username: kubernetes://<namespace>/secrets/<my-secret-name>/<my-secret-key>
           password: kubernetes://<namespace>/secrets/<my-secret-name>/<my-secret-key>
       reporters:
+        elasticsearch:
+          enabled: false
         tcp:
           enabled: true
           host: logstash
           port: 8379
           output: elasticsearch
+    ratelimit:
+      type: redis
+    redis:
+      host: 'redis-host'
+      port: 6379
+      password: 'redis-password'
+      download: true
     alerts:
       enabled: true
       endpoints:
@@ -461,6 +414,12 @@ There is at least 3 connections to configure :
         enabled: true
         username: alert-engine-username
         password: alert-engine-password
+    api:
+      enabled: false
+    portal:
+      enabled: false
+    ui:
+      enabled: false
     ```
     
     !!! note "Online documentation"
@@ -582,7 +541,7 @@ There is at least 3 connections to configure :
     management:
       type: http
       http:
-        url: https://bridge-gateway-url:bridge-gateway-port
+        url: https://bridge-gateway-url:bridge-gateway-port 
         authentication:
           basic:
             username: bridge-gateway-username

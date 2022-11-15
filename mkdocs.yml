@@ -4,8 +4,8 @@ site_url: https://dobl1.github.io/gravitee-se-docs
 site_author: Dorian BLANC
 
 # Repository
-# repo_url: https://github.com/gravitee-io
-# repo_name: gravitee-io
+repo_url: https://github.com/dobl1/gravitee-se-docs
+repo_name: gravitee-se-docs
 
 # Configuration
 theme:
@@ -26,6 +26,7 @@ theme:
   logo: assets/logo-white.png
   icon:
     repo: fontawesome/brands/github
+    edit: material/pencil
   features:
     - navigation.instant
     - navigation.tracking
@@ -33,18 +34,37 @@ theme:
     - navigation.tabs
     - navigation.top
     - content.code.annotate
+    - content.tabs.link
     - search.suggest
     - search.share
     - announce.dismiss
 
+# Extra CSS
+extra_css:
+  - stylesheets/extra.css
+
 # Plugins
 plugins:
   - search
-  - tags
+  - git-revision-date-localized:
+      enable_creation_date: true
+  # - mike:
+  #   alias_type: symlink
+  #   redirect_template: null
+  #   deploy_prefix: ''
+  #   canonical_version: null
+  #   version_selector: true
+  #   css_dir: css
+  #   javascript_dir: js
+  # - tags:
+  #   tags_file: tags.md
 
 # Customization
 extra:
   generator: false
+  version:
+    provider: mike
+    default: latest
   social:
     - icon: fontawesome/brands/twitter 
       link: https://twitter.com/GraviteeIO
@@ -99,9 +119,15 @@ nav:
   - Home: index.md
   - API Management:
     - api-management/index.md
+    - Architecture:
+      - api-management/architecture/index.md
+      - Self-Hosted: api-management/architecture/self-hosted.md
+      - Hybrid: api-management/architecture/hybrid.md
     - Installation:
       - Hybrid: api-management/install/hybrid.md
+      - Reference Architecture: api-management/install/reference-architecture.md
   - Access Management: access-management/index.md
   - API Designer: api-designer/index.md
   - Alert Engine: alert-engine/index.md
   - Cockpit: cockpit/index.md
+  - Tags: tags.md
