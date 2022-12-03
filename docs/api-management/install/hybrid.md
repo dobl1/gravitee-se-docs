@@ -18,8 +18,6 @@ hide:
 
 ## Hybrid Architecture Self-Hosted (Hybrid) gateway
 
-
-
 ### Installation
 
 === "Kubernetes (Helm)"
@@ -42,8 +40,25 @@ hide:
     2. Install using the `values.yaml` file.
     <br>[Here is the full `values.yaml` example](https://artifacthub.io/packages/helm/graviteeio/apim3?modal=values), please customize it following the [Configuration sections](#configuration).
       ```bash
-      helm install graviteeio-apim3x graviteeio/apim3 -f values.yaml
+      helm install graviteeio-apim3x graviteeio/apim3  \
+      --create-namespace  \
+      --namespace gravitee-apim  \
+      -f values.yaml
       ```
+
+    !!! note "Enterprise License"
+        **If you are using enterprise plugins, you have to install a license file.**
+
+        Please chose one of these options
+
+        - Add the `license.key` in the `values.yml` file
+        - Add a helm install command parameter `--set license.key=`
+
+        and provide the B64 encoded license :
+
+        - linux: `base64 -w 0 license.key`
+        - macOS: `base64 license.key`
+        - windows (certutil): `certutil -encode license.key tmp.b64 && findstr /v /c:- tmp.b64 > license.b64 && del tmp.b64` and copy the context of the license.b64 generated file.
 
 === "Docker"
 
@@ -93,11 +108,10 @@ There is at least 3 connections to configure :
 -  The connection to push Analytics and Logs with file or tcp reporter pushing data for logstash to send them to the SaaS storage.
 -  The connection the local rate limits database.
 -  [Optional] The connection to the SaaS Alert Engine.
--  [Optional] The connection to the SaaS Cockpit
 
 #### Management
 
-=== "Kubernetes (Helm with `values.yaml` file)"
+=== "Kubernetes (Helm)"
 
     Into the `values.yaml` configuration file :
     
@@ -268,11 +282,12 @@ There is at least 3 connections to configure :
     ```yaml title="values.yaml" linenums="1"
     ratelimit:
       type: redis
-    redis:
-      host: 'redis-host'
-      port: 6379
-      password: 'redis-password'
-      download: true
+    management:
+      ratelimit:
+        redis:
+          host: redis-host
+          port: 6379
+          password: redis-password
     ```
     
     !!! info "Online documentation"
@@ -370,12 +385,6 @@ There is at least 3 connections to configure :
             password: alert-engine-password
     ```
 
-#### Cockpit
-
-!!! info "Follow cockpit instructions"
-    Please follow directly the instruction you have on cockpit.
-    `https://cockpit.gravitee.io/accounts/YOUR-ACCOUNT-HRID/installations/how-to`
-
 #### Full example
 
 === "Kubernetes (Helm)"
@@ -396,16 +405,16 @@ There is at least 3 connections to configure :
           enabled: false
         tcp:
           enabled: true
-          host: logstash
+          host: gravitee-logstash
           port: 8379
           output: elasticsearch
+      ratelimit:
+        redis:
+          host: gravitee-redis-master
+          port: 6379
+          password: redis-password
     ratelimit:
       type: redis
-    redis:
-      host: 'redis-host'
-      port: 6379
-      password: 'redis-password'
-      download: true
     alerts:
       enabled: true
       endpoints:
@@ -420,6 +429,9 @@ There is at least 3 connections to configure :
       enabled: false
     ui:
       enabled: false
+    # For enterprise plugin only, you will need a license
+    # license:
+    #   name: licensekey
     ```
     
     !!! note "Online documentation"
@@ -628,7 +640,25 @@ There is at least 3 connections to configure :
 
 === "Kubernetes (Helm)"
 
-    - [Bitnami helm charts](https://artifacthub.io/packages/helm/bitnami/redis)
+    !!! info "Bitnami helm charts"
+        [Redis Bitnami helm charts](https://artifacthub.io/packages/helm/bitnami/redis)
+
+    TL;DR
+    ```bash
+    helm repo add redis https://charts.bitnami.com/bitnami
+
+    helm install gravitee-redis redis/redis  \
+    --set architecture=standalone  \
+    --create-namespace \
+    --namespace gravitee-apim
+    ```
+
+    Get the generated redis password
+    `echo $(kubectl get secret --namespace gravitee-apim gravitee-redis -o jsonpath="{.data.redis-password}" | base64 -d)`
+
+
+    !!! note "Production Architecture"
+        [Redis Bitnami Cluster topologies](https://artifacthub.io/packages/helm/bitnami/redis#cluster-topologies) to go "Master-Replicas" or "Master-Replicas with Sentinel"
 
 === "Docker"
 
@@ -638,7 +668,7 @@ There is at least 3 connections to configure :
     services:
       rate-limit:
         # https://hub.docker.com/_/redis?tab=tags
-        image: redis:${REDIS_VERSION:-7.0.4-alpine3.16}
+        image: redis:${REDIS_VERSION:-7.0.5-alpine3.17}
         container_name: gio_ratelimit_redis
         hostname: redis
         restart: always
@@ -668,8 +698,20 @@ There is at least 3 connections to configure :
 
 === "Kubernetes (Helm)"
 
-    - [Official helm charts](https://artifacthub.io/packages/helm/elastic/logstash#how-to-install-oss-version-of-logstash)
-    - [Bitnami helm charts](https://bitnami.com/stack/logstash/helm)
+    !!! info "Helm charts"
+        - [Official helm charts](https://artifacthub.io/packages/helm/elastic/logstash)
+        - [Logstash Bitnami helm charts](https://artifacthub.io/packages/helm/bitnami/logstash)
+
+    TL;DR using the official helm chart
+    ```bash
+    helm repo add elastic https://helm.elastic.co
+
+    helm install gravitee-logstash elastic/logstash  \
+    --create-namespace \
+    --namespace gravitee-apim  \
+    -f values.yaml
+    ```
+
 
 === "Docker"
 
@@ -770,7 +812,54 @@ There is at least 3 connections to configure :
     }
     ``` -->
 
-=== "Input TCP - Output S3 bucket"
+=== "Kubernetes (Helm)"
+
+    !!! info "Helm charts"
+        [Official `values.yml`](https://github.com/elastic/helm-charts/blob/main/logstash/values.yaml)
+
+    ```yaml title="values.yaml" linenums="1"
+    logstashPipeline: 
+    logstash.conf: |
+        input {
+          tcp {
+              port => 8379
+              codec => "json"
+          }
+        }
+
+        filter {
+            if [type] != "request" {
+                mutate { remove_field => ["path", "host"] }
+            }
+        }
+
+        output {
+          s3 {
+            access_key_id => "${S3_ACEESS_KEY_ID}"
+            secret_access_key => "${S3_SECRET_ACCESS_KEY}"
+            region => "${S3_REGION}"
+            bucket => "${S3_BUCKET_NAME}"
+            size_file => 10485760
+            codec => "json_lines"
+          }
+        }
+
+    fullnameOverride: gravitee-logstash
+
+    extraPorts:
+      - name: tcp-input
+        containerPort: 8379
+
+    service:
+      type: ClusterIP
+      ports:
+        - name: tcp-input
+          port: 8379
+          protocol: TCP
+          targetPort: 8379
+    ```
+
+=== "logstash.conf"
 
     ```text title="logstash.conf" linenums="1"
     input {
