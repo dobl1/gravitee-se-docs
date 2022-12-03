@@ -2,62 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/tags/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/access-management/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/alert-engine/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/api-designer/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/api-management/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/api-management/architecture/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/api-management/architecture/hybrid/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/api-management/architecture/self-hosted/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/api-management/install/hybrid/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/api-management/install/reference-architecture/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dobl1.github.io/gravitee-se-docs/latest/cockpit/</loc>
-         <lastmod>2022-11-15</lastmod>
+         <lastmod>2022-12-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
